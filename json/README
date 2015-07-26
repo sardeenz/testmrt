@@ -1,0 +1,2 @@
+jruby -S bundle exec warble
+cp wrapper.war /usr/local/Cellar/tomcat/7.0.52/libexec/webapps/.

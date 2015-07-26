@@ -1,0 +1,35 @@
+<div ng-controller="EmbedViewCtrl">
+    <div ng-include="'partials/nav.html'"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-horizontal">
+                    <form novalidate>
+                        <tabset>
+                            <!--<tab active="optionsActive">
+                                <tab-heading><i class="glyphicon glyphicon-tasks"></i> Options</tab-heading>
+                                <div ng-include="'partials/options.html'"></div>
+                            </tab>-->
+                            <tab active="tabs[0].active" id="contact">
+                                <tab-heading><i class="glyphicon glyphicon-user"></i> Input</tab-heading>
+                                <div ng-include="'partials/reduced_tab.html'"></div>
+                            </tab>
+                            <!--<tab>
+                                <tab-heading><i class="glyphicon glyphicon-cog"></i> JSON</tab-heading>
+                                <div ng-include="'partials/json.html'"></div>
+                            </tab>-->
+                            <tab active="summaryActive.active" disabled="summaryDisabled">
+                                <tab-heading tooltip="{{summaryTooltip}}"><i class="glyphicon glyphicon-list-alt"></i> Summary</tab-heading>
+                                <div ng-include="'partials/embed_summary.html'"></div>
+                            </tab>
+                        </tabset>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div ng-include="'partials/status.html'"></div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-modal" ng-show="shared.loading"></div>
+</div>

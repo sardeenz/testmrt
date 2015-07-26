@@ -1,0 +1,14 @@
+<div ng-controller="OptionsCtrl">
+    <accordion close-others="false">
+        <accordion-group heading="{{pane.name}}" is-open="status[pane.name]" ng-init="status[pane.name] = true" ng-repeat="pane in options">
+            <label ng-repeat="option in pane.options" class="checkbox">
+                <input
+                        type="checkbox"
+                        name="selectedOptions[]"
+                        value="{{option}}"
+                        ng-checked="selection.indexOf(option) > -1"
+                        ng-click="toggleSelection(option)"> {{option}}
+            </label>
+        </accordion-group>
+    </accordion>
+</div>

@@ -1,0 +1,59 @@
+<div ng-controller="TabsCtrl">
+    <div ng-controller="OptionsCtrl">
+        <accordion close-others="false">
+            <accordion-group heading="{{pane.name}}" is-open="status[pane.name]" ng-init="status[pane.name] = true" ng-repeat="pane in options">
+                <div ng-repeat="row in pane.options | partition:2">
+                    <div class="col-sm-6" ng-repeat="option in row" ng-switch="option.option">
+
+                        <label class="checkbox" ng-switch-when="custom">
+                            <input
+                                    type="checkbox"
+                                    ng-model="custom_options.enabled">
+
+                            <input type="text"
+                                   ng-model="custom_options.text"> {{option.text}}
+                        </label>
+                        <label class="checkbox" ng-switch-default>
+                            <input
+                                    type="checkbox"
+                                    name="selectedOptions[]"
+                                    value="{{option.option}}"
+                                    ng-checked="selection.indexOf(option.option) > -1"
+                                    ng-click="toggleSelection(option.option)"> {{option.text}}  ({{option.option}})
+                        </label>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <accordion close-others="false" >
+        <accordion-group is-open="status[pane.name]" ng-init="status[pane.name] = true" >
+            <accordion-heading ng-class="{true: bg-primary};">Input</accordion-heading>
+            <!-- start of pane -->
+            <div class="row" ng-repeat="tab in tabs">
+                <div class="col-md-10" ng-repeat="pane in tab.panes">
+                    <div class="form-group" ng-repeat="field in pane.fields1">
+                        <label class="col-sm-6 control-label" for="{{tab.id}}.{{field.id}}">{{field.name}}</label>
+                        <div class="col-sm-6" ng-switch="field.type">
+                            <select id="{{tab.id}}.{{field.id}}" class="form-control input-style" ng-model="input[tab.id][field.id]" ng-options="country.alpha as country.name for country in country_codes" ng-switch-when="select">
+                                <option value="">-- choose country code --</option>
+                            </select>
+                            <input ng-class="response && (input[tab.id][field.id] != null) ? 'response' : ''" id="{{tab.id}}.{{field.id}}" class="form-control input-style" required="" ng-model="input[tab.id][field.id]" ng-switch-default>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-md-6" ng-repeat="pane in tab.panes">
+                    <div class="form-group" ng-repeat="field in pane.fields2">
+                        <label class="col-sm-6 control-label" for="{{tab.id}}.{{field.id}}">{{field.name}}</label>
+                        <div class="col-sm-6" ng-switch="field.type">
+                            <select id="{{tab.id}}.{{field.id}}" class="form-control input-style" ng-model="input[tab.id][field.id]" ng-options="country.alpha as country.name for country in country_codes" ng-switch-when="select">
+                                <option value="">-- choose country code --</option>
+                            </select>
+                            <input ng-class="(response  && (input[tab.id][field.id] != null) ? 'response' : '')" id="{{tab.id}}.{{field.id}}" class="form-control input-style" placeholder="{{field.type}}" required="" ng-model="input[tab.id][field.id]" ng-switch-default>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

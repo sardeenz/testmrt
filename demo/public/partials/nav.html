@@ -1,0 +1,68 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavCtrl">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="btn-group" dropdown>
+                <button class="btn btn-warning navbar-btn dropdown-toggle" type="button" tooltip-placement="bottom" tooltip="Put your login credentials here to access the Worldview tool">
+                    <i class="glyphicon glyphicon-asterisk"></i> Credentials <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu" style="padding:17px;">
+                    <form class="form" id="credentials-form">
+                        <div class="form-group">
+                            <label class="control-label" for="credentials.username">Username</label>
+                            <input id="credentials.username" ng-click="$event.stopPropagation()" type="text" class="form-control input-style" required="" ng-model="credentials['username']">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="credentials.password">Password</label>
+                            <input id="credentials.password" ng-click="$event.stopPropagation()" type="password" required="" class="form-control input-style" ng-model="credentials['password']">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="credentials.tenant">Tenant</label>
+                            <input id="credentials.tenant" ng-click="$event.stopPropagation()" type="text" class="form-control input-style" required="" ng-model="credentials['tenant']">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6"><button class="btn navbar-right" type="button" id="logout" class="btn" ng-click="logout()" ng-if="credentialsVerified.verified">Logout</button></div>
+                            <div class="col-xs-6"><button class="btn navbar-right" type="button" id="login" class="btn" ng-click="setCredentials()">Set Credentials</button></div>
+                        </div>
+
+                    </form>
+                </div>
+            </li>
+            <li class="btn-group" dropdown  is-open="status.isopen">
+                <button class="btn btn-warning navbar-btn dropdown-toggle" type="button" tooltip-placement="bottom" tooltip="Use this option to load preset inputs to see how the system works">
+                    Load Preset <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="preset in presets"><a href="" ng-click="toggleDropdown($event); setPreset($index);">{{preset.name}}</a></li>
+                </ul>
+            </li>
+            <li class="btn-group">
+                <button class="btn btn-warning navbar-btn" type="button" ng-if="simplified" ng-click="go('/full')" tooltip-placement="bottom" tooltip="Use this button to switch to the full input mode">
+                    Full Input</span>
+                </button>
+                <button class="btn btn-warning navbar-btn" type="button" ng-if="!simplified" ng-click="go('/')" tooltip-placement="bottom" tooltip="Use this button to switch to the simplified input mode">
+                    Simplified Input</span>
+                </button>
+            </li>
+            <li ng-show="credentialsVerified.verified" tooltip-placement="bottom" tooltip="These are your credentials that show you are logged in to access the product"><a>Using username <strong>{{credentials.username}}</strong> for company <strong>{{credentials.tenant}}</strong></a></li>
+        </ul>
+
+        <p id="nav-info" class="navbar-text hidden">Using username <strong><span id="nav-username"></span></strong> and tenant <strong><span id="nav-tenant"></span></strong></p>
+        <button type="button" class="btn btn-primary clear-form navbar-btn navbar-right" ng-click="clearForm()" tooltip-placement="bottom" tooltip="Click this button to clear your input">Reset</button>
+        <button type="button" class="btn btn-primary validate navbar-btn navbar-right" ng-click="submitForm()" tooltip-placement="bottom" tooltip="Click this button to submit your input for verification or correction">Submit for verification</button>
+    </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,3073 @@
+/* algemeen */
+
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	background: #e3e3e4;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 75%; /* Based on the browser default of 16px and results in 12px. */
+	line-height: 1.5em; /* This is based on the above font size of 12px and results in 18px. */
+	color: #666666;
+	min-width:1000px;
+	width:100%;
+}
+a {
+	text-decoration: none;
+	color: #009bdf;
+	outline: none;
+	cursor: pointer;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:focus {
+	outline:none;
+}
+.logout {
+	text-decoration: none;
+	color: #009bdf;
+	outline: none;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.logout a:hover {
+	text-decoration: underline;
+}
+.userdetials {
+	color: #ff9900;
+	font-weight:bold;
+	border:solid 0px red;
+}
+/* opzet pagina */
+
+#wrap {
+	margin: 0px;
+	width: 100%;
+	padding:0px;
+	background: #fff;
+}
+#top {
+	background: #fff;
+	height: 0px;
+}
+#content {
+	padding: 0px;
+	margin:0px;
+}
+#bottom {
+	height: 30px;
+}
+/* layout header */
+
+.header {
+	height: 100px;
+	background: #85ACF7 url('images/header3.png') repeat-x;
+	padding: 0px;
+	margin:0px;
+}
+.header h1 {
+	padding-left: 17px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	font-size: 22px;
+	color: #FFF;
+}
+.header h1 a {
+	font-size: 40px;
+	color: #FFF;
+	text-decoration: none;
+}
+.headerimg {
+	background: url('images/logo.png');
+	background-repeat: no-repeat;
+	background-position: 10px 15px;
+	width: 900px;
+	height: 100px;
+}
+.header h2 {
+	padding-left: 17px;
+	padding-top: 0px;
+	font-size: 17px;
+	color: #FFF;
+}
+/* layout menu */
+
+.breadcrumbs {
+	height: 41px;
+	padding: 0px;
+	margin: 0px;
+	background: #F6F9FB url('images/breadcrumbbg.png') repeat-x;
+	min-width:1000px;
+	border:0px;
+}
+/* the menujs layout*/
+.menu ul {
+	margin: 0;
+	padding: 0;
+	z-index:99;
+}
+.menu li {
+	list-style-type: none;
+	cursor: pointer;
+}
+.menu a {
+	display: block;
+	text-decoration: none;
+	background-color: #FFF;
+	color: #5a5a5a;
+	font-weight: bold;
+	cursor: pointer;
+}
+#menu-last-divider {
+	background: url('images/breadcrumbbg_divider.png');
+	height: 41px;
+	width: 2px;
+}
+/* first level */
+.menu li {
+	float: left;
+	padding-top:0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#menu-container-menu li:first-child {
+	margin-left: 15px;
+}
+.menu a {
+	height:41px;
+	text-align: center;
+	line-height:3em;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.menu a {
+	display: block;
+	background: #F6F9FB url('images/breadcrumbbg_menu.png') repeat-x;
+}
+.menu a:hover, .menu a.menu_open {
+	background: #F6F9FB url('images/breadcrumbbg_inverted.png') repeat-x;
+	background-position: top left;
+}
+.menu .selected a {
+	background: #ff9900 url('images/breadcrumbbg_active.png');
+	background-position: top left;
+	color: #ffffff;
+}
+.menu .selected a:hover {
+	background: #ff9900 url('images/breadcrumbbg_active.png');
+	background-position: top left;
+	color: #ffffff;
+}
+.menu .selected .arrow {
+	background:transparent url('images/arrow.png') no-repeat scroll 0 0;
+	display:block;
+	height:6px;
+	left:50%;
+	margin-left:-4px;
+	position:relative;
+	top:4px;
+	width:11px;
+}
+/* second level and up */
+.menu ul {
+	visibility: hidden;
+	position: absolute;
+	width: 200px;
+	display: block;
+}
+#menu-container-menu li ul li:first-child {
+	margin-left: 0px;
+}
+.menu ul a {
+	background: #fffffd url('images/breadcrumbbg_level2.png');
+	width: 191px;
+	text-align: left;
+	filter:alpha(opacity=100);
+	-moz-opacity:1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
+.menu ul a:hover, .menu ul a.menu_open {
+	background: #fffffd url('images/breadcrumbbg_level2_inverted.png');
+	cursor: pointer;
+}
+/* third level (colors) */
+.menu ul ul a {
+	background: #C7C7C7
+}
+.menu ul ul a:hover {
+	background: #cecece;
+}
+/*
+.breadcrumbs a {
+	height: 41px;
+	position: relative;
+	top: 10px;
+	padding-top: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 14px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #5a5a5a;
+	display: inline;
+}
+*/
+/*
+.breadcrumbs a:hover {
+background: #F6F9FB url('images/breadcrumbbg_inverted.png'); 
+text-decoration: none;
+}
+
+.breadcrumbs a.active {
+background: #F6F9FB url('images/breadcrumbbg_active.png'); 
+}
+
+/* layout middenstuk */
+
+.middle h1 {
+	padding-top: 10px;
+	font-size: 1.35em;
+	color: #ff9900;
+}
+.middle {
+	
+
+	padding: 2%;
+	padding-top: 3%;
+	text-align: left;
+	min-height:400px;
+	height:auto !important;
+	height:400px;
+	background: url('images/shadow.png') repeat-x;
+}
+.right {
+	float: left;
+	width: 30%;
+	margin: 0 10px;
+	padding: 1% 1%;
+}
+.right ul {
+	padding: 20px 0 15px 20px;
+	margin:0;
+}
+.right li {
+	margin-bottom:5px;
+	list-style-type: square;
+	color: #3B6EBF;
+}
+.middle h2 {
+	color: #3B6EBF;
+	font-size: 14px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.right h2 {
+	color: #3B6EBF;
+	font-size: 14px;
+	margin-top: 15px;
+}
+.middle hr {
+	display: none;
+}
+#clear {
+	display: block;
+	clear: both;
+	width: 100%;
+	height:1px;
+	overflow:hidden;
+}
+.mannequin {
+	background: url('images/360view.png');
+	height: 263px;
+	width: 100%;
+	background-repeat: repeat-x;
+}
+/* layout loginbox */
+
+.vergrootglas {
+	background: url('images/vergrootglas.gif') no-repeat;
+	background-position: top center;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.vergrootglas-enabled {
+	background: url('images/vergrootglas.gif') no-repeat;
+	background-position: top center;
+	height:400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.vergrootglas-disabled {
+	margin-left: auto;
+	margin-right: auto;
+}
+.login {
+	width: 200px;
+	margin-left: 100px;
+}
+.login table tr td label {
+	float: right;
+	padding: 5px;
+}
+.login table tr td input {
+	float: left;
+}
+.loginbutton {
+	text-align: center;
+}
+/* layout datasets */
+
+DIV.t-beaneditor {
+	background: none;
+	border: none;
+	padding: 0px;
+}
+DIV.t-beaneditor-row {
+	padding: 0px;
+}
+ DIV.t-beaneditor-row name:label {
+ padding: 0px;
+}
+IMG.t-error-icon {
+	margin-left: 0px;
+	width: 0px;
+	height: 0px;
+	background: none;
+}
+/* layout footer */
+
+#footer {
+	text-align: center;
+	color: #666;
+	height:30px;
+}
+.implementationinfo {
+	text-align:right;
+	padding-right:10px;
+}
+/* tabel */
+
+.t-data-grid tr td {
+	padding: 3px;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	background-color:#fff;
+	width:100%;
+}
+DIV.t-data-grid {
+	padding-top: 5px;
+}
+TABLE.t-data-grid {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid .ExportConfiguration {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:20%;
+}
+TABLE.t-data-grid .ExportAll {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid .SourceFile {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:70%;
+}
+TABLE.t-data-grid .selected {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid .name {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:60%;
+}
+TABLE.t-data-grid .name a {
+	color:#fff;
+}
+TABLE.t-data-grid .size {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:30%;
+}
+TABLE.t-data-grid .delete {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid tbody tr td table tr td {
+	border: none;
+}
+/* table structure for datasets page*/
+
+.t-data-grid-datasets tr td {
+	padding: 3px;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	background-color:#fff;
+	width:100%;
+}
+DIV.t-data-grid-datasets {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-datasets {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-datasets .selected {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets .name {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:60%;
+}
+TABLE.t-data-grid-datasets .size {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets .improve {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets .report {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets .export {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets .delete {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-datasets THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-datasets THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-datasets .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-datasets THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-datasets {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-datasets TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-datasets {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-datasets TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-datasets tbody tr td table tr td {
+	border: none;
+}
+/* table structure for download page*/
+
+.t-data-grid-download tr td {
+	padding: 3px;
+	background-color:#fff;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+DIV.t-data-grid-download {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-download {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-download .selected {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .name {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:20%;
+}
+TABLE.t-data-grid-download .Namefiles {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .Addressfiles {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .NameAddressfiles {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .Statusfiles {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .Duplicatefile {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .ReportFile {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .Mergefile {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download .Zipfile {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-download THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-download THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-download .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-download THEAD TR TH {
+	text-align: left;
+	padding: 5px 8px;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-download {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-download TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding: 5px 5px;
+	text-align : left;
+}
+DIV.t-data-grid-download {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-download TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-download tbody tr td table tr td {
+	border: none;
+}
+/* table structure for dbadmin page*/
+
+.t-data-grid-dbadmin tr td {
+	padding: 3px;
+	background-color:#fff;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+DIV.t-data-grid-dbadmin {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-dbadmin {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-dbadmin .selected {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-dbadmin .name {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:40%;
+}
+TABLE.t-data-grid-dbadmin .libraries {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:40%;
+}
+TABLE.t-data-grid-dbadmin .delete {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:20%;
+}
+TABLE.t-data-grid-dbadmin THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-dbadmin THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-dbadmin .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-dbadmin THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-dbadmin {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-dbadmin TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-dbadmin {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-dbadmin TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-dbadmin tbody tr td table tr td {
+	border: none;
+}
+/* table structure for wizardprogress page*/
+
+.t-data-grid-wizardprogress tr td {
+	padding: 3px;
+	background-color:#fff;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+DIV.t-data-grid-wizardprogress {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-wizardprogress {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-wizardprogress .DataSet {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:10%;
+}
+TABLE.t-data-grid-wizardprogress .description {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:30%;
+}
+TABLE.t-data-grid-wizardprogress .StatusDesc {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:30%;
+}
+TABLE.t-data-grid-wizardprogress .Errors {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:20%;
+}
+TABLE.t-data-grid-wizardprogress .processedRecordCount {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:10%;
+}
+TABLE.t-data-grid-wizardprogress .failedRecordCount {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	vertical-align:top;
+	width:10%;
+}
+TABLE.t-data-grid-wizardprogress THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-wizardprogress THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-wizardprogress THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-wizardprogress {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-wizardprogress TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-wizardprogress {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-wizardprogress TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-wizardprogress tbody tr td table tr td {
+	border: none;
+}
+/* table structure for progress page*/
+
+.t-data-grid-progress tr td {
+	padding: 3px;
+	background-color:#fff;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+DIV.t-data-grid-progress {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-progress {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-progress .dataSet {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:30%;
+}
+TABLE.t-data-grid-progress .statusDescription {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:40%;
+}
+TABLE.t-data-grid-progress .details {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-progress .failedRecordCount {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-progress .processedRecordCount {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-progress THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-progress THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-progress THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-progress {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-progress TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-progress {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-progress TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-progress tbody tr td table tr td {
+	border: none;
+}
+/* table structure for progress-details page*/
+
+.t-data-grid-progress-details tr td {
+	padding: 3px;
+	background-color:#fff;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+DIV.t-data-grid-progress-details {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-progress-details {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-progress-details .description {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:30%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details .statusDescription {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:30%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details .cleanup {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details .errorMessage {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:20%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details .failedRecordCount {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details .processedRecordCount {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+	text-align: left;
+}
+TABLE.t-data-grid-progress-details THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-progress-details THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-progress-details THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-progress-details {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-progress-details TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-progress-details {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-pager A, DIV.t-data-grid-pager SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-pager A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-pager SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-progress-details TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-progress-details tbody tr td table tr td {
+	border: none;
+}
+/* table structure for admin grid page*/
+
+.t-data-grid-admin tr td {
+	padding: 3px;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	background-color:#fff;
+	width:100%;
+}
+DIV.t-data-grid-admin {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-admin {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-admin .t-first {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10% !important;
+}
+TABLE.t-data-grid-admin .id {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:5% !important;
+}
+TABLE.t-data-grid-admin .lstate {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:5%;
+}
+TABLE.t-data-grid-admin .type {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .location {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .info {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:100%;
+}
+TABLE.t-data-grid-admin .start {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .stop {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .update {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .uninstall {
+	vertical-align: top;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+}
+TABLE.t-data-grid-admin .t-last {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-admin THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-admin THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-admin .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-admin THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-admin {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-admin TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-admin {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-admin A, DIV.t-data-grid-admin SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-admin A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-admin SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-admin TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-admin tbody tr td table tr td {
+	border: none;
+}
+/* table structure for admin contact bundle page*/
+
+.t-data-grid-contactbundle tr td {
+	padding: 3px;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	background-color:#fff;
+	width:100%;
+}
+DIV.t-data-grid-contactbundle {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-contactbundle {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-contactbundle .id {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:10% !important;
+	vertical-align:top;
+}
+TABLE.t-data-grid-contactbundle .symbolicName {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:40% !important;
+	vertical-align:top;
+}
+TABLE.t-data-grid-contactbundle .services {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:50%;
+}
+TABLE.t-data-grid-contactbundle .t-last {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-contactbundle THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-contactbundle THEAD TR {
+	color: white;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-contactbundle .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-contactbundle THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-contactbundle {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+TABLE.t-data-grid-contactbundle TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-contactbundle {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-pager {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-contactbundle A, DIV.t-data-grid-contactbundle SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-contactbundle A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-contactbundle SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-contactbundle TR TH A {
+	color: white;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-contactbundle tbody tr td table tr td {
+	border: none;
+}
+/* errors */
+
+.t-zone h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	line-height: 1.5em; /* This is based on the above font size of 12px and results in 18px. */
+	color: #FF1A00;
+}
+div.t-error {
+	border: none;
+	padding: 0 0 0px 30px;
+	margin: 0 0 0px 10px;
+	background-image: url(images/error-icon.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	color:#FF1A00;
+	line-height:25px;
+	font-weight:bold;
+}
+div.t-error-hidden {
+	border: none;
+	padding: 0 0 10px 30px;
+	margin: 0px;
+	background-image: url(images/error-icon.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	display:none;
+	color:#FF1A00;
+	font-weight:bold;
+}
+div.t-success {
+	border: none;
+	padding: 0 0 0px 30px;
+	margin: 0 0 0px 10px;
+	background-image: url(images/success-icon.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	color:#689a25;
+	line-height:25px;
+	font-weight:bold;
+}
+div.t-informational {
+	border: none;
+	padding: 0 0 0px 30px;
+	margin: 0 0 0px 10px;
+	background-image: url(images/informationalsuccess-icon.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	color:#45B4DA;
+	line-height:25px;
+	font-weight:bold;
+}
+div.t-success-hidden {
+	border: none;
+	padding: 0 0 10px 30px;
+	margin: 0px;
+	background-image: url(images/success-icon.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	display:none;
+	color:#689a25;
+	font-weight:bold;
+}
+.confirmDialog {
+	border: none;
+	padding: 0 0 0px 30px;
+	margin: 0 0 0px 10px;
+	background-image: url(images/error-icon.png);
+	background-repeat: no-repeat;
+}
+DIV.t-error DIV {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	line-height: 1.5em;
+	padding: 0 0 0 0px;
+	background-color: #fff;
+	color: #FF1A00;
+	font-weight: bold;
+}
+DIV.t-error UL {
+	margin: 0px;
+	background-color: #fff;
+	color: #666;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5em;
+}
+DIV.t-error LI {
+	margin-left: 0px;
+}
+HTML>BODY DIV.t-error LI {
+	margin-left: 0px;
+	list-style: none;
+}
+.t-zone p {
+	padding-bottom: 10px;
+}
+/* buttons */
+
+.submit { /* = login */
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/login.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.next {
+	position: relative;
+	left: 15px;
+	cursor: pointer;
+	border: none;
+	padding: 0px;
+	margin-top: 10px;
+	margin-right: 10px;
+	background: url(images/next.png);
+	background-repeat: no-repeat;
+	width: 127px;
+	height: 25px;
+}
+.disabled {
+	background: url(images/next_disabled.png);
+	cursor: default;
+}
+.enabled {
+	background: url(images/next.png);
+}
+.previous {
+	float: left;
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	margin-top:10px;
+	background:url(images/previous.png);
+	background-repeat: no-repeat;
+	width: 127px;
+	height: 25px;
+}
+.finish {
+	position: relative;
+	left: 15px;
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/finish.png);
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 40px;
+}
+.improveyourdata {
+	float: left;
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/improveyourdata.png);
+	background-repeat: no-repeat;
+	width: 290px;
+	height: 88px;
+	position: absolute;
+	left: 25px;
+	top: 520px;
+}
+.startimproving {
+	position: relative;
+	left: 100px;
+	cursor: pointer;
+	border: none;
+	padding: 0px;
+	margin-right: 10px;
+	background: url(images/startimproving.png);
+	background-repeat: no-repeat;
+	width: 254px;
+	height: 90px;
+}
+.refresh {
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/refresh.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.upload {
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	padding-bottom: 10px;
+	background:url(images/uploadfile.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+	position: relative;
+	top: 8px;
+	left: 6px;
+}
+.create {
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/create.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.deleteButton {
+	cursor:pointer;
+	border:none;
+	padding: 0px;
+	background:url(images/delete.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.cancelButton {
+	cursor:pointer;
+	border:none;
+	margin-left: 10px;
+	background:url(images/cancel.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.dropButton {
+	cursor: pointer;
+	border: none;
+	margin-left: 10px;
+	background: url(images/drop.png);
+	background-repeat: no-repeat;
+	width: 121px;
+	height: 30px;
+}
+.mappedMark {
+	border: none;
+	background: url(images/checkmark.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+.maleGenderIcon {
+	border: none;
+	background: url(images/MaleSuggestionIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.possibleMaleGenderIcon {
+	border: none;
+	background: url(images/PossbleMaleSuggestionIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.maleFemaleGenderIcon {
+	border: none;
+	background: url(images/BothSuggestionIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.femaleGenderIcon {
+	border: none;
+	background: url(images/FemaleSuggestionIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.possibleFemaleGenderIcon {
+	border: none;
+	background: url(images/PossibleFemaleSuggestionIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.organizationIcon {
+	border: none;
+	background: url(images/OrganizationIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.personIcon {
+	border: none;
+	background: url(images/personIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.unknownIcon {
+	border: none;
+	background: url(images/UnkownIcon.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.postalIcon {
+	border: none;
+	background: url(images/PostalAddress.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.visitingIcon {
+	border: none;
+	background: url(images/VisitingAddress.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.otherIcon {
+	border: none;
+	background: url(images/OtherAddress.png);
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 17px;
+}
+.removeIcon {
+	cursor: pointer;
+	border: none;
+	background: url(images/oldfashion-trash-icon.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+.disabledRemoveIcon {
+	cursor: pointer;
+	border: none;
+/*	background: url(images/oldfashion-trash-icon.png); */
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+.browse { /*mag niet van browser*/
+/*
+cursor:pointer;
+border:none;
+padding: 0px;
+background:url(images/browse.png);
+background-repeat: no-repeat;
+width: 140px;
+height: 42px;
+*/
+	}
+.wizardProgress {
+	float: right;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+/* tabs */
+
+.x-tab-strip span.x-tab-strip-text {
+	color:#5A5A5A;
+}
+.tab-icon {
+}
+/* activate page*/
+	
+.activePage1 {
+	border: none;
+	background: url(images/active-1.png);
+	background-repeat: no-repeat;
+	width: 54px;
+	height: 53px;
+	vertical-align: middle;
+}
+.activePage2 {
+	border: none;
+	background: url(images/active-2.png);
+	background-repeat: no-repeat;
+	width: 54px;
+	height: 53px;
+	vertical-align: middle;
+}
+.activePage3 {
+	border: none;
+	background: url(images/active-3.png);
+	background-repeat: no-repeat;
+	width: 54px;
+	height: 53px;
+	vertical-align: middle;
+}
+.activePage4 {
+	border: none;
+	background: url(images/active-4.png);
+	background-repeat: no-repeat;
+	width: 54px;
+	height: 53px;
+	vertical-align: middle;
+}
+.activePage5 {
+	border: none;
+	background: url(images/active-5.png);
+	background-repeat: no-repeat;
+	width: 54px;
+	height: 53px;
+	vertical-align: middle;
+}
+.inactivePage1 {
+	border: none;
+	background: url(images/inactive-1.png);
+	background-repeat: no-repeat;
+	width: 41px;
+	height: 40px;
+	vertical-align: middle;
+}
+.inactivePage2 {
+	border: none;
+	background: url(images/inactive-2.png);
+	background-repeat: no-repeat;
+	width: 41px;
+	height: 40px;
+	vertical-align: middle;
+}
+.inactivePage3 {
+	border: none;
+	background: url(images/inactive-3.png);
+	background-repeat: no-repeat;
+	width: 41px;
+	height: 40px;
+	vertical-align: middle;
+}
+.inactivePage4 {
+	border: none;
+	background: url(images/inactive-4.png);
+	background-repeat: no-repeat;
+	width: 41px;
+	height: 40px;
+	vertical-align: middle;
+}
+.inactivePage5 {
+	border: none;
+	background: url(images/inactive-5.png);
+	background-repeat: no-repeat;
+	width: 41px;
+	height: 40px;
+	vertical-align: middle;
+}
+/* CSS added by Jyoti from 18th march 2010 */
+.button-style-big {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13pt;
+	color: #ffffff;
+	background: url(images/big-button2.png);
+	text-align: left;
+	cursor:pointer;
+	width:265px;
+	padding-left:10px;
+	height:46px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+	position:relative;
+}
+.button-style-big:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13pt;
+	color: #ffffff;
+	background: url(images/big-buttonhover2.png);
+	text-align: left;
+	padding-left:10px;
+	cursor:pointer;
+	width:265px;
+	height:46px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+	position:relative;
+}
+.button-style-enabled {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	background: url(images/buttonimage-new.png) no-repeat left top;
+	text-align:center;
+	cursor:pointer;
+	height:29px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-left:15px;
+	padding-right:15px;
+}
+.button-style-enabled:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	background: url(images/buttonimagehover-new.png) no-repeat right top;
+	cursor:pointer;
+	height:29px;
+	border:0px;
+	margin:0px;
+	text-align:center;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-left:15px;
+}
+input.button-style-enabled {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	background: url(images/buttonimage-new.png) no-repeat right top;
+	cursor:pointer;
+	height:29px;
+	border:0px;
+	margin:0px;
+	text-align:center;
+	font-weight:bold;
+	vertical-align:middle;
+	padding:0 15px 0px 12px !important;
+}
+.button-style-enabled-edge {
+	background: url(images/buttonimage-new3.png) no-repeat left top;
+	height:29px;
+	border:0px;
+	margin:0px;
+	padding-left:2px;
+}
+.button-style-disabled-edge {
+	background: url(images/button-image-disabled4.png) no-repeat left top;
+	height:29px;
+	border:0px;
+	margin:0px;
+	padding-left:2px;
+}
+.button-style-disabled {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	background: url(images/button-image-disabled-new.png) no-repeat right top;
+	height:29px;
+	border:0px;
+	margin:0px;
+	text-align:center;
+	font-weight:bold;
+	vertical-align:middle;
+	padding:0 15px 0px 12px !important;
+}
+.panel {
+	border:solid 1px #e6e8e9;
+	margin:10px 0 20px 0 !important;
+	padding:10px 10px 10px 10px;
+}
+.button-rightaligned {
+	padding-right:0px;
+	text-align:left;
+	border:solid 0px red;
+	padding:0px;
+	margin:0px;
+	width:80%;
+}
+.button-topaligned {
+	padding-top:20px;
+	text-align:right;
+}
+.button-topaligned-width {
+	padding-top:20px;
+	text-align:left;
+	width:98%;
+}
+/* wizard style */
+.right-tab-inactive {
+	background:url(images/top-bar-leftcurve-off.png) top left no-repeat;
+	height:44px;
+	width:10px;
+	vertical-align:top;
+}
+.right-tab-active {
+	background:url(images/top-bar-leftcurve-on.png) top right no-repeat;
+	height:44px;
+	width:10px;
+	vertical-align:top;
+	margin-top:1px;
+}
+.right-tab-partially-inactive {
+	background:url(images/top-bar-leftcurve-off.png) top left no-repeat;
+	height:44px;
+	width:10px;
+	vertical-align:top;
+	margin-top:1px;
+}
+.active-tab {
+	background: url(images/chevron-on2.png) top right no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	line-height:44px;
+	width:140px;
+	vertical-align:top;
+}
+.active-tab a {
+	text-decoration:none;
+	color:#FFF;
+	background-color:#ff9000;
+}
+.inactive-tab {
+	text-align:left;
+	background: url(images/chevron-off3.png) top right no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	line-height:44px;
+	width:140px;
+	vertical-align:top;
+}
+.inactive-tab a {
+	text-decoration:none;
+	color:#FFF;
+	background-color:#898e93;
+}
+.partially-inactive-tab {
+	text-align:left;
+	background: url(images/chevron-off2.png) top right no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	line-height:44px;
+	width:140px;
+	vertical-align:top;
+}
+.step-number-partially-inactive {
+	background-color:#FFF;
+	padding:1px 5px;
+	margin:0px 5px 0px 0px;
+	color:#858b90;
+}
+.partially-inactive-tab a {
+	text-decoration:none;
+	color:#FFF;
+	background-color:#898e93;
+}
+.left-tab-inactive {
+	background:url(images/top-bar-rightcurve-off.png) top right no-repeat;
+	height:44px;
+	width:10px;
+	vertical-align:top;
+	margin-top:1px;
+}
+.left-tab-active {
+	background:url(images/top-bar-rightcurve-on.png) top left no-repeat;
+	height:44px;
+	width:10px;
+	vertical-align:top;
+}
+.lasttab-inactive {
+	background: url(images/bar-off.png) top right repeat-x;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	line-height:44px;
+	width:140px;
+	vertical-align:top;
+}
+.lasttab-active {
+	background: url(images/bar-on.png) top right repeat-x;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;
+	font-weight:bold;
+	line-height:44px;
+	width:140px;
+	vertical-align:top;
+}
+.lasttab-inactive a {
+	text-decoration:none;
+	color:#FFF;
+	background-color:#888e93;
+}
+.lasttab-active a {
+	text-decoration:none;
+	color:#FFF;
+}
+.spacer {
+	width:10px;
+}
+.step-number-active {
+	background-color:#FFF;
+	padding:1px 5px;
+	margin:0px 5px 0px 0px;
+	color:#ff9000;
+	font-size:12px;
+	font-weight:bold;
+}
+.step-number-inactive {
+	background-color:#FFF;
+	padding:1px 5px;
+	margin:0px 5px 0px 0px;
+	color:#858b90;
+}
+.wizard {
+	border:medium none;
+	font-size:0;
+	line-height:0;
+	margin:0;
+	padding:0;
+}
+/* tabs used on report page */
+
+#tabular-design {
+	margin:0px auto;
+	position:relative;
+	width:1000px;
+	float:left;
+	padding:0px;
+}
+#tabular-design ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+	left:9px;
+	position:relative;
+}
+#tabular-design li {
+	float:left;
+	margin:0;
+	padding:0;
+}
+#tabular-design a {
+	display:block;
+}
+#tabular-design li {
+	float:left;
+	margin:0;
+	padding:0;
+	background:url(images/inactive-tab.png) no-repeat right top;
+}
+#tabular-design a {
+	display:block;
+	background:url(images/inactive-left-tab.png) no-repeat left top;
+	padding:0 35px 0 15px;
+	line-height:41px;
+	height:41px;
+	margin:0 0 0 -9px;
+	color:#868b90;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+}
+#tabular-design li.activetab {
+	float:left;
+	margin:0;
+	padding:0;
+	background:url(images/active-tab.png) no-repeat right top;
+	position:relative;
+	z-index:12;
+}
+#tabular-design li.activetab a {
+	display:block;
+	background:url(images/active-left-tab.png) no-repeat left top;
+	padding:0 35px 0 15px;
+	line-height:41px;
+	height:41px;
+	margin:0 0 0 -9px;
+	color:#305171;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+}
+.tabular-design-box {
+	border:solid 1px #c3d5e6;
+	position:relative;
+	float:left;
+	top:0px;
+	padding:20px 0px 20px 0px;
+	margin:0px 0px 0px 0px;
+	width:1000px;
+	left:0px;
+}
+.title-band {
+	background-image: url(images/title-bg.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	width:300;
+	height:31px;
+	text-align:left;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12pt;
+	color:#305171;
+	font-weight:normal;
+	line-height:31px;
+	padding-left:10px;
+	padding-bottom:10px;
+	margin-left:10px;
+}
+.graph {
+	border:solid 0px red;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:300px;
+	margin-left:10px;
+}
+.graph p {
+	border:solid 0px green;
+	padding-left:5px;
+	float:left;
+}
+.graph p a {
+	text-decoration:underline;
+	color:#ff9000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	padding-right:5px;
+}
+.graph img {
+	border:0px;
+	padding:0px;
+	margin:0px;
+	vertical-align:middle;
+}
+.ttl-1-holder {
+	float:right;
+	padding:0px 20px 10px 0px;
+	margin:0px;
+}
+.ttl-1 {
+	float:right;
+	padding:0px 20px 10px 0px;
+	margin:0px;
+}
+.ttl-1 a {
+	color:#FF9000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-decoration:underline;
+}
+.ttl-1 a.iconholder {
+	border:0px;
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+}
+.ttl-1 a.iconholder img {
+	border:0px;
+	text-decoration:none;
+	padding-right:3px;
+	vertical-align:middle;
+}
+.graph-data {
+	border:0px solid #C3D5E6;
+	margin-top:20px;
+	padding:0px;
+	width:300px;
+}
+.graph-data td {
+	background-color:#e5e5e5;
+	color:#666565;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	padding:5px 0px 5px 10px;
+}
+.graph-data td.lbl {
+	background-color:#eeeeee;
+	color:#2c353e;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	padding:5px 0px 5px 10px;
+}
+.info-message {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#2c3c47;
+	line-height:20px;
+	background-color:#f8f8f8;
+	padding-left:5px;
+	border:solid 1px #f5f4f4;
+	margin-bottom:15px;
+	font-weight:bold;
+}
+/* Login page */
+
+.login-panel {
+	margin:0px auto;
+	width:781px;
+	background-image: url(images/login-screen-panel.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	height:415px;
+}
+.login-panel .login-box {
+	float:left;
+	left:45px;
+	position:relative;
+	top:50px;
+	width:370px;
+}
+.login-panel .select-language {
+	padding:5px 5px 5px 0px;
+}
+.login-panel .login-box h1 {
+	font-size:16pt;
+	color:#ff9900;
+	font-weight:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	top:0px;
+	line-height:0px;
+}
+.login-panel .login-box h2 {
+	font-size:12px;
+	color:#555555;
+	font-weight:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	top:0px;
+	line-height:20px;
+}
+.login-panel .login-box label {
+	font-size:12px;
+	color:#555555;
+	font-weight:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	top:0px;
+	line-height:25px;
+	padding-bottom:10px;
+	font-weight:bold;
+}
+.login-panel .textbox {
+	border:1px solid #c3c0bb;
+	color:#63666D;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:bold;
+	line-height:normal;
+	margin:0;
+	padding:5px;
+	width:200px;
+}
+.panel .textbox {
+	border:1px solid #c3c0bb;
+	color:#63666D;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:bold;
+	line-height:normal;
+	margin:0;
+	padding:5px;
+	width:200px;
+}
+.information-details {
+	font-size:12px;
+	color:#6b67ce;
+	font-weight:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:25px;
+	font-weight:bold;
+}
+.x-grid3-row-alt {
+	background-color:#f7f7f6 !important;
+}
+.login-details {
+	float:right;
+	margin-right:10px;
+	margin-left:10px;
+	text-align:right;
+}
+.email-alertbox {
+	border:solid 1px #e6e8e9;
+	background-color:#f3f5f6;
+	padding:10px 10px 10px 5px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#6B67CE;
+	font-weight:bold;
+}
+.email-alertbox .chkbox {
+	padding-left:10px;
+}
+.email-alertbox .email-textbox {
+	padding-top:10px;
+	padding-left:10px;
+}
+.bds-name {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#ff9b00;
+	font-weight:bold;
+}
+/* image button */
+.button-box {
+	margin: 0px 0 0px 0px;
+	padding: 0px;
+	height: 29px;
+	width:135px;
+	background-image: url(images/button-image.png);
+	background-repeat: no-repeat;
+}
+.button-box:hover {
+	height: 29px;
+	width:135px;
+	margin: 0px 0 0px 0px;
+	padding: 0px;
+	background-image: url(images/buttonimagehover.png);
+	background-repeat: no-repeat;
+	color:#fff;
+	font-weight:bold;
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+	text-decoration:none;
+}
+.button-box-link {
+	position: absolute;
+	height: 29px;
+	width:135px;
+	background-color: transparent;
+	border: 0px solid yellow;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#fff;
+	font-weight:bold;
+	font-size:12px;
+	line-height:30px;
+	vertical-align:middle;
+	padding:0px;
+	text-decoration:none;
+	margin:0px;
+	text-decoration:none;
+}
+.button-box-link:hover {
+	text-decoration:none;
+}
+.button-box-link p {
+	color:#FFFFFF;
+	border:solid 0px #000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	height:28px;
+	line-height:26px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	vertical-align:middle;
+	text-decoration:none;
+}
+/* class for grid buttons */
+.grid-button-style-enabled {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff !important;
+	background: url(images/button-image-grid.png) no-repeat;
+	text-align: center;
+	cursor:pointer;
+	width:135px;
+	height:23px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+}
+.grid-button-style-enabled:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+	background: url(images/buttonimagehover-grid.png) no-repeat;
+	text-align: center;
+	cursor:pointer;
+	width:135px;
+	height:23px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding:0px;
+	margin:0px;
+}
+.reportpage-button {
+	clear:both;
+	padding-top:20px;
+	margin:0x;
+}
+/* CSS added by Jyoti from 16th aug 2010 */
+
+.tabular-design-box-price {
+	position:relative;
+	float:left;
+	top:0px;
+	padding:0px 0px 0px 0px;
+	margin:30px 0px 0px 0px;
+	width:1000px;
+	left:0px;
+}
+.tabular-design-box-price-top {
+	background: url(images/bg-grey-price.png) no-repeat top;
+	height:45px;
+}
+.tabular-design-box-price-middle {
+	background: url(images/bg-grey-price-middle.png) repeat-y;
+	padding:10px;
+}
+.tabular-design-no-box-price-bottom {
+	background: url(images/bg-greyblue.png) no-repeat bottom;
+	height:22px;
+}
+.tabular-design-box-price-bottom {
+	background: url(images/bg-grey-price-bottom.png) no-repeat bottom;
+	height:120px;
+}
+.tabular-design-box-price h1 {
+	font-size:11pt;
+	padding:0 0 0 20px;
+	color:#353f48;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	float:left;
+	margin-top:15px;
+}
+.tabular-design-box-price .tabstructure {
+	background-color:#FFFFFF;
+	color:#353F48;
+	float:left;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11pt;
+	font-weight:normal;
+	margin-left:10px;
+	margin-top:10px;
+	padding:9px 15px 8px 15px;
+	position:relative;
+}
+.tabular-design-box-price .price-top {
+	font-size:12pt;
+	float:left;
+	margin-left:5px;
+	color:#f58b23;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	top:0px;
+	padding:16px 0px 0px;
+}
+.tabular-design-box-price-middle .tbl {
+	border:solid 0px red;
+	left:22px;
+	background-color:#ffffff;
+	float:left;
+	margin:0px;
+	position:relative;
+	width: 954;
+	padding:10px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.tabular-design-box-price-middle h1 {
+	font-size:14pt;
+	color:#305171;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	padding:0px;
+	margin:0px;
+	line-height:35px;
+}
+.tabular-design-box-price-middle .bottombrd {
+	border-bottom:solid 1px #305171;
+}
+.tabular-design-box-price-middle .tbl .greybg {
+	background-color:#f2f3f4;
+	margin:0px;
+	padding:0px;
+	line-height:30px;
+	font-size:11pt;
+	padding-left:10px;
+	color:#353f48;
+}
+.tabular-design-box-price-middle .tbl .whitebg {
+	background-color:#ffffff;
+	margin:0px;
+	padding:0px;
+	line-height:30px;
+	font-size:11pt;
+	padding-left:10px;
+	color:#353f48;
+}
+.tabular-design-box-price-middle .tbl .totalprice {
+	background-color:#ffffff;
+	margin:0px;
+	padding:0px;
+	line-height:30px;
+	font-size:12pt;
+	padding-left:10px;
+	color:#353f48;
+	font-weight:bold;
+}
+.tabular-design-box-price-middle .tbl .totalprice .priceamount {
+	background-color:#ffffff;
+	margin:0px;
+	padding:0px;
+	line-height:30px;
+	font-size:14pt;
+	padding-left:5px;
+	color:#ff6600;
+	font-weight:bold;
+}
+.tabular-design-box-price-middle .tbl .addservice {
+	margin:0px;
+	padding:0px;
+	line-height:30px;
+	font-size:12px;
+	padding-left:10px;
+	color:#ff9000;
+	text-decoration:underline;
+	font-weight:bold;
+}
+.tabular-design-box-price-middle .tbl .addservice a {
+	text-decoration:underline;
+}
+.tabular-design-box-price-middle .addservice a:hover {
+	text-decoration:underline;
+}
+.tabular-design-box-price-bottom .btn {
+	padding-left:30px;
+}
+.price-label-style {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13pt;
+	color: #ff9900;
+	background: url(images/price-button.png) no-repeat;
+	text-align: left;
+	width:192px;
+	height:37px;
+	line-height:37px;
+	border:0px;
+	margin:0px;
+	font-weight:bold;
+	vertical-align:middle;
+}
+/* table structure for report price page*/
+
+.t-data-grid-costoverview tr td {
+	padding: 3px;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	background-color:#fff;
+	width:100%;
+}
+DIV.t-data-grid-costoverview {
+	padding-top: 5px;
+}
+TABLE.t-data-grid-costoverview {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+}
+TABLE.t-data-grid-costoverview .componentName {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:60%;
+}
+TABLE.t-data-grid-costoverview .pricePerRecord {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:15%;
+	text-align:right;
+}
+TABLE.t-data-grid-costoverview .recordCount {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:15%;
+}
+TABLE.t-data-grid-costoverview .counter {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	width:20%;
+}
+TABLE.t-data-grid-costoverview .pricePerType {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:20%;
+}
+TABLE.t-data-grid-costoverview .price {
+	vertical-align: middle;
+	border-bottom: 1px solid #d9dcdf;
+	border-left: 1px solid #d9dcdf;
+	border-right: 1px solid #d9dcdf;
+	width:10%;
+	text-align:right;
+}
+TABLE.t-data-grid-costoverview .cost .cost-figure {
+	vertical-align: middle;
+	width:10%;
+	text-align:right;
+}
+TABLE.t-data-grid-costoverview .cost-figure-total {
+	vertical-align: middle;
+	width:10%;
+	text-align:right;
+	font-weight: bold;
+	vertical-align:middle;
+}
+TABLE.t-data-grid-costoverview THEAD IMG {
+	border: none;
+	vertical-align: middle;
+}
+TABLE.t-data-grid-costoverview THEAD TR {
+	color: #fff;
+	background-color: #848a8f;
+	font-size: 13px;
+}
+TABLE.t-data-grid-costoverview .name .t-first {
+	color: white;
+	background-color: #FF9900;
+	padding: 3px;
+}
+TR.tr-first td {
+	border: none;
+}
+TABLE.t-data-grid-costoverview THEAD TR TH {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	border-left: none;
+	border-right: none;
+}
+TABLE.t-data-grid-costoverview {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+	width:954px;
+	left:24px;
+	background-color:#ffffff;
+	float:left;
+	margin:0px;
+	position:relative;
+	width: 934px;
+	padding:10px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+TABLE.t-data-grid-costoverview TBODY TR TD {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+DIV.t-data-grid-costoverview {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+DIV.t-data-grid-costoverview {
+	border:0px solid red;
+	float:left;
+	margin:0;
+	padding:20px 0 10px;
+	position:relative;
+	text-align:right;
+	top:0;
+	width:100%;
+}
+DIV.t-data-grid-costoverview A, DIV.t-data-grid-costoverview SPAN.current {
+	border:1px solid #C8CCD0;
+	color:#8D9298;
+	font-size:medium;
+	margin-right:5px;
+	padding:2px 5px;
+	text-decoration:none;
+}
+DIV.t-data-grid-costoverview A:hover {
+	border: 1px solid #858483;
+	color:#000000;
+	background-color:#FFFFFF;
+}
+DIV.t-data-grid-costoverview SPAN.current {
+	background-color:#FFFFFF;
+	border:1px solid #FFBC0F;
+	color:#FFBC0F;
+}
+TABLE.t-data-grid-costoverview TR TH A {
+	color: #fff;
+}
+IMG.t-sort-icon {
+	margin-left: 4px;
+}
+TABLE.t-data-grid-costoverview tbody tr td table tr td {
+	border: none;
+}
+.spacer_accept {
+	margin: 10px 0px 10px 30px
+}
+.left-float {
+	float:left;
+}
+.gutter_01 {
+	padding-top:8px;
+	float:left;
+}
+.hht {
+	height:30px;
+}
+
+.pie-container ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	margin-top: -25px;
+}
+
+.pie-container li
+{
+	float: left;
+	margin: 0 0.15em;
+	margin-top: 25px;
+	width: 320px;
+}
+
+.piediv {
+	 border: 1px solid #000;
+	 padding: 10px;
+	 width: 100%;
+	 margin-top: 5px;
+}
+
+br.clear {
+	clear: both;
+	height: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#reportPieHeader {
+    width: 100%; 
+    height: 30px; 
+}
+
+#reportPieHeader a {
+    color:#FF9000;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    text-decoration:underline;
+}
+
+.x-tree-node {
+	white-space:normal;
+	}

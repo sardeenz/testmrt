@@ -1,0 +1,24 @@
+<div class="container" ng-controller="StatusCtrl" id="status-messages">
+    <div class="col-md-3">
+        <legend>Status</legend>
+        <div><a target="_blank" href="http://globaldataconsortium.com/worldview/help-hints-and-tips-worldview-manual-review-tool-mrt/">Help, hints, and tips for the Worldview Manual Review Tool</a></div>
+        <br>
+        <div class="well well-lg">
+            <div><h5><a ng-click="expandAll()">Expand all</a> / <a ng-click="closeAll()">Close all</a></h5></div>
+            <ul class="list-unstyled">
+                <li ng-repeat="tab in tabs">
+                    <label class="tree-toggler" ng-click="hideTree($event)" tooltip-placement="top" tooltip="Click to see result messages for {{tab.name}} results"><i class="{{tab.icon}}"></i> {{tab.name}} <b class="right-caret"></b></label>
+                    <ul class="list-unstyled tree" style="display:none;"  ng-repeat="msg in input[tab.id]['codes']['messages']" ng-if="input[tab.id]['codes']['messages'].length && msg.code != '?'">
+                        <li>Code: {{msg.code}}</li>
+                        <li>Description: {{msg.value}}</li>
+
+                    </ul>
+                    <ul class="list-unstyled tree" style="display:none;"  ng-if="!(input[tab.id]['codes']['messages'].length) && input[tab.id]['codes']['messages'] != undefined">
+                        <li>Code: {{input[tab.id]['codes']['messages']['code']}}</li>
+                        <li>Description: {{input[tab.id]['codes']['messages']['value']}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

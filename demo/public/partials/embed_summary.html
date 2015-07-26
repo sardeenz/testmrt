@@ -1,0 +1,124 @@
+<div ng-controller="EmbedSummaryCtrl" id="summary-page">
+    <div class="row">
+        <div class="col-sm-12 summary-jumbotron">
+            <img src="img/logo-big.png">
+            <h1>Results</h1>
+        </div>
+    </div>
+    <accordion close-others="false" id="actualSummary">
+        <accordion-group is-open="status['summary_top']" ng-init="status['summary_top'] = true" >
+            <accordion-heading>
+                Summary Data
+            </accordion-heading>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3>Reliability Summary</h3>
+                    <progressbar value="(10/d.value)*100" class="progress-striped" type="{{d.type}}" ng-repeat="d in myData" ng-if="d.value != 0">{{d.label}}</progressbar>
+                    <div class="reliability-legend">
+                        <h5 class="text-center">Legend</h5>
+                        <row>
+                            <div class="col-xs-4"><progressbar value="100" class="progress-striped" type="success">Good</progressbar></div>
+                            <div class="col-xs-4"><progressbar value="100" class="progress-striped" type="warning">Questionable</progressbar></div>
+                            <div class="col-xs-4"><progressbar value="100" class="progress-striped" type="danger">Bad</progressbar></div>
+                        </row>
+                    </div>
+                    <div>
+                        <a target="_blank" href="http://globaldataconsortium.com/worldview/country-list/">Click to see a complete list of Worldview Coverage</a>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <h3 ng-if="input['address']['latitude'] != null && input['address']['longitude'] != null">Map from Geocoding</h3>
+                    <a target="_blank" href="http://maps.google.com/?q={{input['address']['latitude']}},{{input['address']['longitude']}}" ng-if="input['address']['latitude'] != null && input['address']['longitude'] != null">
+                        <img
+                                src="http://maps.googleapis.com/maps/api/staticmap?center={{input['address']['latitude']}},{{input['address']['longitude']}}&zoom=14&size=370x200&sensor=false&markers=color:blue%7Clabel:S%7C{{input['address']['latitude']}},{{input['address']['longitude']}}"
+                                ng-if="input['address']['latitude'] != null && input['address']['longitude'] != null"
+                                >
+                    </a>
+                    <div class="summary-map" ng-if="input['address']['latitude'] == null || input['address']['longitude'] == null">
+                        <img src="http://portal2.globaldataconsortium.com:7734/demo/css/globe.png">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="status[tab.id]" ng-init="status[tab.id] = true" ng-repeat="tab in tabs_global" ng-if="reliability[tab.id] != 0">
+            <accordion-heading ng-class="summaryClass[reliability[tab.id]]">
+                <i class="{{tab.icon}}"></i> {{tab.name}} <small>Reliability: {{reliabilityMap[reliability[tab.id]]}}</small>
+            </accordion-heading>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Previous Value</th>
+                        <th>New Value</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="pane in tab.panes">
+                    <tr ng-repeat="field in pane.fields1" ng-show="input[tab.id][field.id]!=null && input[tab.id][field.id]!=''">
+                        <td>{{field.name}}</td>
+                        <td>{{old_input[tab.id][field.id]}}</td>
+                        <td>{{input[tab.id][field.id]}}</td>
+                    </tr>
+                    <tr ng-repeat="field in pane.fields2" ng-show="input[tab.id][field.id]!=null && input[tab.id][field.id]!=''">
+                        <td>{{field.name}}</td>
+                        <td>{{old_input[tab.id][field.id]}}</td>
+                        <td>{{input[tab.id][field.id]}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Status Code</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="code in input[tab.id]['codes']['messages']" ng-if="input[tab.id]['codes']['messages'].length && code.code != '?'">
+                        <td>{{code.code}}</td>
+                        <td>{{code.value}}</td>
+                    </tr>
+                    <tr ng-if="!(input[tab.id]['codes']['messages'].length) && input[tab.id]['codes']['messages'] != undefined">
+                        <td>{{input[tab.id]['codes']['messages']['code']}}</td>
+                        <td>{{input[tab.id]['codes']['messages']['value']}}</td>
+                    </tr>
+                </table>
+            </div>
+        </accordion-group>
+
+        <accordion-group is-open="status['detail_list']" ng-init="status['detail_list'] = true" ng-if="extended_details">
+            <accordion-heading>
+                Extended Detail
+            </accordion-heading>
+            <div class="row" ng-repeat="tab in tabs_global" ng-if="detail_list[tab.id] != null && detail_list[tab.id] != '?' && detail_list[tab.id][0] != '?'">
+                <table class="table">
+                    <thead>
+                    <tr><th>{{tab.name}}</th></tr>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in detail_list[tab.id]" ng-if="item[1] != 'null' && item[1] != ' ' && item[0].indexOf('null') == -1">
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                    </tr>
+                    <!--<tr ng-repeat="code in input[tab.id]['codes']['messages']" ng-if="input[tab.id]['codes']['messages'].length">
+                        <td>{{code.code}}</td>
+                        <td>{{code.value}}</td>
+                    </tr>
+                    <tr ng-if="!(input[tab.id]['codes']['messages'].length) && input[tab.id]['codes']['messages'] != undefined">
+                        <td>{{input[tab.id]['codes']['messages']['code']}}</td>
+                        <td>{{input[tab.id]['codes']['messages']['value']}}</td>
+                    </tr>-->
+                </table>
+            </div>
+        </accordion-group>
+    </accordion>
+    <button class="btn btn-primary" ng-click="printDiv('actualSummary')">Print Summary</button>
+    <button class="btn btn-primary" ng-click="open()">Email PDF</button>
+    <button class="btn btn-primary" ng-click="saveToWorldview()">Save</button>
+    <button class="btn btn-primary" ng-click="discard()">Discard</button>
+    <!--<div ng-show="selectedEmail">Selection from a modal: {{ selectedEmail }}</div>-->
+</div>

@@ -1,0 +1,1223 @@
+<html>
+  <head>
+    <title>WorldView Demo Tool</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <style type="text/css">
+      .loading-modal {
+      display:    none;
+      position:   fixed;
+      z-index:    1000;
+      top:        0;
+      left:       0;
+      height:     100%;
+      width:      100%;
+      background: rgba( 255, 255, 255, .8 ) 
+		      url('http://i.stack.imgur.com/FhHRx.gif') 
+		      50% 50% 
+		      no-repeat;
+      }
+      
+      body.loading {
+	  overflow: hidden;   
+      }
+
+      body.loading .loading-modal {
+	  display: block;
+      }
+
+      .chart text {
+	  fill: black;
+	  font: 10px sans-serif;
+	  text-anchor: start;
+      }
+
+      
+      .bar10 { fill: #dff0d8; }
+      .bar20 { fill: #fcf8e3; }
+      .bar30 { fill: #f2dede; }
+    </style>
+    <script src="jquery-2.1.0.js"></script>
+    <script src="custom.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="handlebars-v1.3.0.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    
+    <!--<link href="//www.fuelcdn.com/fuelux/2.6.0/css/fuelux.min.css" rel="stylesheet" type="text/css">
+    <link href="//www.fuelcdn.com/fuelux/2.6.0/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
+    <script src="http://www.fuelcdn.com/fuelux/2.6.0/loader.min.js" type="text/javascript"></script>-->
+    
+    <script id="nav-template" type="text/x-handlebars-template">
+	{{#tabs}}<li{{#if active}} class="active"{{/if}} id="{{id}}_tab_link"><a href="#{{id}}_tab" data-toggle="tab"><span class="{{icon}}"></span> {{name}}</a></li>
+{{/tabs}}
+    </script>
+    
+    <script id="summary-status-template" type="text/x-handlebars-template">
+      <tr><td>{{status_code}}</td><td>{{status_description}}</td></tr>
+    </script>
+    <script id="summary-template" type="text/x-handlebars-template">
+      <tr><td>{{name_value}}</td><td>{{previous_value}}</td><td>{{new_value}}</td></tr>
+    </script>
+    <script id="summary-tab-template" type="text/x-handlerbars-template">
+      <div class="tab-pane" id="summary_tab">
+	<div id="actual-summary">
+	  <div class="panel-group" id="accordion">
+	    <div class="panel panel-default" id="chart_summary_panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title" >
+		  <span class="glyphicon glyphicon-user"></span>
+		  <a data-toggle="collapse" href="#collapseSummaryChart">
+		    Results Chart
+		  </a>
+		</h4>
+	      </div>
+	      <div id="collapseSummaryChart" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    <div class="col-xs-6">
+		      <svg class="chart" width="0" height="0"></svg>
+		    </div>
+		    <div class="col-xs-6">
+		      <div id="map"></div>
+		    </div>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default" id="identity_summary_panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title" >
+		  <span class="glyphicon glyphicon-user"></span>
+		  <a data-toggle="collapse" href="#collapseSummaryContact">
+		    Contact
+		  </a>
+		  <small id="identity_summary_reliability"></small>
+		</h4>
+	      </div>
+	      <div id="collapseSummaryContact" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Status Code</th><th>Description</th></tr>
+		      </thead>
+		      <!--<br/>-->
+		      <tbody id="contact_status_summary">
+		      </tbody>
+		    </table>
+		    <!--<hr></hr>-->
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Field</th><th>Previous Value</th><th>New Value</th></tr>
+		      </thead>
+		      <tbody id="contact_summary">
+		      </tbody>
+		    </table>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default" id="address_summary_panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <span class="glyphicon glyphicon-globe"></span>  
+		  <a data-toggle="collapse" href="#collapseSummaryAddress">
+		    Address
+		  </a>
+		  <small id="address_summary_reliability"></small>
+		</h4>
+	      </div>
+	      <div id="collapseSummaryAddress" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Status Code</th><th>Description</th></tr>
+		      </thead>
+		      <!--<br/>-->
+		      <tbody id="address_status_summary">
+		      </tbody>
+		    </table>
+		    <!--<hr></hr>-->
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Field</th><th>Previous Value</th><th>New Value</th></tr>
+		      </thead>
+		      <tbody id="address_summary">
+		      </tbody>
+		    </table>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default" id="email_summary_panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <span class="glyphicon glyphicon-envelope"></span>
+		  <a data-toggle="collapse" href="#collapseSummaryEmail">
+		    Email
+		  </a>
+		  <small id="email_summary_reliability"></small>
+		</h4>
+	      </div>
+	      <div id="collapseSummaryEmail" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Status Code</th><th>Description</th></tr>
+		      </thead>
+		      <!--<br/>-->
+		      <tbody id="email_status_summary">
+		      </tbody>
+		    </table>
+		    <!--<hr></hr>-->
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Field</th><th>Previous Value</th><th>New Value</th></tr>
+		      </thead>
+		      <tbody id="email_summary">
+		      </tbody>
+		    </table>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	    <div class="panel panel-default" id="phone_summary_panel">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <span class="glyphicon glyphicon-earphone"></span>
+		  <a data-toggle="collapse" href="#collapseSummaryPhone">
+		    Phone
+		  </a>
+		  <small id="phone_summary_reliability"></small>
+		</h4>
+	      </div>
+	      <div id="collapseSummaryPhone" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Status Code</th><th>Description</th></tr>
+		      </thead>
+		      <!--<br></br>-->
+		      <tbody id="phone_status_summary">
+		      </tbody>
+		    </table>
+		    <!--<hr></hr>-->
+		    <table class="table table-striped">
+		      <thead>
+			<tr><th>Field</th><th>Previous Value</th><th>New Value</th></tr>
+		      </thead>
+		      <tbody id="phone_summary">
+		      </tbody>
+		    </table>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	    
+	    
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-9">
+	    <form role="form">
+	      <button id="pdf" type="button" class="btn btn-primary">Download Summary PDF</button>
+	    </form>
+	    <div class="row">
+	      
+	      <div class="col-md-6">
+		    <button id="open-send-summary-modal" data-toggle="modal" data-target="#send-summary-modal" class="btn btn-primary" type="button">Email PDF</button>
+		  
+	      </div><!-- /.col-lg-6 -->
+	    </div><!-- /.row -->
+	  </div>
+	</div>
+      </div>
+    </script>
+    <script id="entry-template" type="text/x-handlebars-template">
+      {{#tabs}}
+	<div class="tab-pane {{#if active}}active{{/if}}" id="{{id}}_tab">
+	  <div class="panel-group" id="{{id}}-accordion">
+	  {{#panes}}
+
+	    <div class="panel panel-default">
+	      <div class="panel-heading">
+		<h4 class="panel-title">
+		  <a data-toggle="collapse" href="#{{../id}}-{{@index}}-collapse">
+		    {{name}}
+		  </a>
+		</h4>
+	      </div>
+	      <div id="{{../id}}-{{@index}}-collapse" class="panel-collapse collapse in">
+		<div class="panel-body">
+		  
+		  <!-- start of pane -->
+		  <div class="row">
+		    <div class="col-md-6">
+		      {{#fields1}}
+		      <div class="form-group">
+			<label class="col-sm-6 control-label" for="{{../../id}}.{{id}}">{{name}}</label>
+			<div class="col-sm-6">
+			  <input id="{{../../id}}.{{id}}" name="{{../../id}}.{{id}}" {{#if password}}type="password" required{{else}}type="text"{{/if}} placeholder="" class="form-control input-style" required="">
+			</div>
+		      </div>
+		      {{/fields1}}
+		    </div>
+		    
+		    <div class="col-md-6">
+		      {{#fields2}}
+		      <div class="form-group">
+			<label class="col-sm-6 control-label" for="{{../../id}}.{{id}}">{{name}}</label>
+			<div class="col-sm-6">
+			  <input id="{{../../id}}.{{id}}" name="{{../../id}}.{{id}}" type="text" placeholder="" class="form-control input-style" required="">
+			</div>
+		      </div>
+		      {{/fields2}}
+		    </div>
+		  </div>
+		  <!-- end of pane -->
+		</div>
+	      </div>
+	    </div>
+	  {{/panes}}
+	  </div>
+	</div>
+	{{/tabs}}
+    </script>
+    <script type="text/javascript">
+      var source   = $("#entry-template").html();
+      var template = Handlebars.compile(source);
+      var context = {
+	  tabs: [
+/*	      {
+		  id: "credentials",
+		  name: "Credentials",
+		  icon: "glyphicon glyphicon-asterisk",
+		  active: true,
+		  panes: [
+		      { name: "Tenant and Login Information",
+			fields1: [{ id: "username", name: "Username"},
+				  { id: "password", name: "Password", password:true},
+				  { id: "tenant", name: "Tenant"}]
+		      }
+		  ]
+	      },*/
+	      {
+		  id: "identity",
+		  name: "Contact",
+		  icon: "glyphicon glyphicon-user",
+		  active: true,
+		  panes: [
+		      { name: "General",
+			fields1: [{ id: "nationality", name: "Nationality"},
+				  { id: "dob", name: "Date of birth/foundation"},
+				  { id: "nationalid", name: "National ID"}],
+			fields2: [{ id: "contact_type", name: "Contact type"},
+				  { id: "organization_name", name: "Organization name"},
+				  { id: "gender", name: "Gender"},
+				  { id: "chamber_na", name: "Chamber of commerce no"}
+				 ]
+		      },
+		      { name: "Name",
+			fields1: [{ id: "surname_first", name: "Surname first"},
+				  { id: "surname_prefix_second", name: "Surname second"},
+				  { id: "givenfullname", name: "Given names"},
+				  { id: "givenfullname", name: "Given names full"},
+				  { id: "completename", name: "Complete name"}],
+			fields2: [{ id: "surname_prefix_first", name: "Surname prefix first"},
+				  { id: "surname_prefix_second", name: "Surname prefix second"},
+				  { id: "givennameinitials", name: "Given names initials"},
+				  { id: "indicator", name: "Indicator"}]
+		      },
+		      { name: "Name qualifiers",
+			fields1: [{ id: "formofaddress", name: "Form of address"},
+				  { id: "qualificationpreceding", name: "Qualification preceding"},
+				  { id: "qualification_int_first", name: "Qualification intermediate first"},
+				  { id: "qualification_int_second", name: "Qualification intermediate second"}],
+			fields2: [{ id: "qualification_suceeding", name: "Qualification succeeding"},
+				  { id: "name_qualified", name: "Name qualified"},
+				  { id: "surname_prefix_first", name: "Compound surname"},
+				  { id: "function", name: "Function"}]
+		      },
+		      { name: "Identity",
+			fields1: [],
+			fields2: []
+		      },
+		      { name: "Creation and mutation date and time",
+			fields1: [{ id: "creation_date_na", name: "Creation date"}],
+			fields2: [{ id: "date_last_modified_na", name: "Date of last modification"}]
+		      }
+		  ]
+	      },
+	      {
+		  id: "address",
+		  name: "Address",
+		  icon: "glyphicon glyphicon-globe",
+		  panes: [
+		      { name: "Delivery",
+			fields1: [{ id:"inputEmail3", name: "Key"},
+				  { id:"thoroughfare", name: "Street name"},
+				  { id:"houseNumber", name: "House number"},
+				  { id:"houseNumberAddition", name: "House number addition"},
+				  { id:"postalCode", name: "Postal code"},
+				  { id:"postTown", name: "Post town"},
+				  { id:"inputEmail3", name: "Delivery Service Indicator"},
+				  { id:"name", name: "Name"},
+				  { id:"organization", name: "Organization"},
+				  { id:"department", name: "Department"}],
+			fields2: [{ id:"inputEmail3", name: "Dependent street name"},
+				  { id:"province", name: "Administrative area/Province"},
+				  { id:"subDistrict", name: "Subadministrative area"},
+				  { id:"locality", name: "Locality"},
+				  { id:"district", name: "Dependent locality"},
+				  { id:"postBox", name: "Postbox"},
+				  { id:"premise", name: "Premise"},
+				  { id:"inputEmail3", name: "Subpremise"},
+				  { id:"countryName", name: "Country name"},
+				  { id:"address_countryCode", name: "Country code"}]
+		      },
+		      { name: "Address lines",
+			fields1: [{ id:"addressLine1", name: "Address line 1"},
+				  { id:"addressLine2", name: "Address line 2"},
+				  { id:"addressLine3", name: "Address line 3"},
+				  { id:"addressLine4", name: "Address line 4"},
+				  { id:"addressLine5", name: "Address line 5"}],
+			fields2: [{ id:"addressLine6", name: "Address line 6"},
+				  { id:"addressLine7", name: "Address line 7"},
+				  { id:"addressLine8", name: "Address line 8"},
+				  { id:"addressLine9", name: "Address line 9"},
+				  { id:"addressLine10", name: "Address line 10"}]
+		      },
+		      { name: "Additional information",
+			fields1: [{ id:"hausCode", name: "Hauscode/Leitcode, Province/County"},
+				  { id:"municipalityCode", name: "Municipality, Urban Area, Lot #"},
+				  { id:"eggCode", name: "EGG code, Congressional District"},
+				  { id:"lacsIndicator", name: "CeBuCo code, LACS Indicator"},
+				  { id:"latitude", name: "Geocoding - Latitude"},
+				  { id:"longitude", name: "Geocoding - Longitude"}],
+			fields2: [{ id:"address_options", name: "Options"},
+				  { id:"inputEmail3", name: "Pre/Post Directional Indicator"},
+				  { id:"address_adaptation", name: "Adaptation Code"},
+				  { id:"address_reliability", name: "Reliability Code"},
+				  { id:"address_detailCode", name: "Detail Code"}]
+		      },
+		      { name: "Creation and mutation date and time",
+			fields1: [{ id:"inputEmail3", name: "Creation date"}],
+			fields2: [{ id:"inputEmail3", name: "Date of last modification"}]
+		      }
+		  ]},
+	      {
+		  id: "email",
+		  name: "Email",
+		  icon: "glyphicon glyphicon-envelope",
+		  panes: [
+/*		      { name: "Contact",
+			fields1: [],
+			fields2: []
+		      },*/
+		      { name: "Email",
+			fields1: [{ id:"full_email_address", name: "Full email address"},
+				  { id:"addressee", name: "Addressee"},
+				  { id:"display_name", name: "Display name"}],
+			fields2: [{ id:"domain", name: "Domain name"},
+				  { id:"top_level", name: "Top level domain"}]
+		      }
+		  ]},
+	      {
+		  id: "phone",
+		  name: "Phone",
+		  icon: "glyphicon glyphicon-earphone",
+		  panes: [
+		      { name: "Phone",
+			fields1: [{ id:"phone_number", name: "Phone number"},
+				  { id:"calling_from", name: "Calling from country code"},
+				  { id:"phone_countryCode", name: "Country code"},
+				  { id:"formatted_international", name: "Formatted out of country calling"},
+				  { id:"line_type", name: "Line type"}],
+			fields2: [{ id:"international_prefix", name: "International call prefix"},
+				  { id:"calling_code", name: "Country calling code"},
+				  { id:"trunk", name: "Trunk prefix"},
+				  { id:"area_code", name: "Area code"},
+				  { id:"number", name: "Subscriber number"}]
+		      }
+		  ]}
+	  ]};
+	var html    = template(context);
+	
+	var nav_source   = $("#nav-template").html();
+	var nav_template = Handlebars.compile(nav_source);
+	var nav_html = nav_template(context);
+    </script>
+    <style>
+      .input-style {
+      font-size: 12px;
+      }
+      body { padding-top: 70px; }
+      #credentials-form {
+        min-width:240px;
+      }
+      .navbar-btn{
+      margin-left:10px;
+      }
+    </style>
+
+  </head>
+  
+  <body>
+    
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="#">GDC</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+	  <li class="dropdown" id="menuLogin">
+	    <button data-toggle="dropdown" class="btn btn-warning navbar-btn dropdown-toggle" type="button">
+	      <i class="glyphicon glyphicon-asterisk"></i> Credentials <span class="caret"></span>
+	    </button>
+	    <div id="login-dropdown" class="dropdown-menu" style="padding:17px;">
+	      <form class="form" id="credentials-form">
+		<div class="form-group">
+		    <label class="control-label" for="credentials.username">Username</label>
+		      <input id="credentials.username" name="credentials.username" type="text" placeholder="" class="form-control input-style" required="">
+
+		  </div>
+		  
+		  <div class="form-group">
+		    <label class="control-label" for="credentials.password">Password</label>
+
+		      <input id="credentials.password" name="credentials.password" type="password" required="" placeholder="" class="form-control input-style">
+
+		  </div>
+		  
+		  <div class="form-group">
+		    <label class="control-label" for="credentials.tenant">Tenant</label>
+		      <input id="credentials.tenant" name="credentials.tenant" type="text" placeholder="" class="form-control input-style" required="">
+		  </div>
+
+		<button class="btn navbar-right" type="button" id="login" class="btn">Set Credentials</button>
+
+	      </form>
+	    </div>
+	  </li>
+	  <li class="dropdown" id="presets-button">
+	    <button data-toggle="dropdown" class="btn btn-warning navbar-btn dropdown-toggle" type="button">
+	       Load Preset <span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu">
+              <li><a href="javascript: loadPreset(presetJustin)" id="preload-geocoding">Justin example</a></li>
+	      <li><a href="javascript: loadPreset(presetSusanMitchell)" id="preload-geocoding">Susan Mitchell</a></li>
+            </ul>
+	  </li>
+	</ul>
+	
+	<p id="nav-info" class="navbar-text hidden">Using username <strong><span id="nav-username"></span></strong> and tenant <strong><span id="nav-tenant"></span></strong></p>
+	<button type="button" class="btn btn-primary clear-form navbar-btn navbar-right">Clear form</button>
+	<button type="button" class="btn btn-primary validate navbar-btn navbar-right">Submit for verification</button>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+      <div class="row middle">
+
+        <div class="col-md-9">
+          <div class="bs-example">
+	    <div class="form-horizontal" id="main_form">
+	      <!-- Nav tabs -->
+	      <div class="alert alert-warning" id="country-error" style="display:none;">
+		<button type="button" class="close">×</button>
+		Either the Address Country Code, Country Name or Phone Country Code are required.
+	      </div>
+	      
+
+	      <div style="display:none" id="error_div" class="alert alert-warning">There was an issue with your request, please try again later.</div>
+	      <div id="nav">
+	      <ul class="nav nav-tabs">
+		<li id="options_tab_link"><a href="#options_tab" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Options</a></li>
+		<li id="json_tab_link"><a href="#json_tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> JSON</a></li>
+		<li id="summary_tab_link"><a href="#summary_tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Summary</a></li>
+
+	      </ul>
+
+	      </div>
+	      <!-- Tab panes -->
+
+	      <div id="tabs">
+		<div class="tab-content">
+		  
+		<div class="tab-pane" id="options_tab">
+		  <div class="panel-group" id="accordion">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+			<h4 class="panel-title" >
+			  <a data-toggle="collapse" href="#collapseOne">
+			    Address Options
+			  </a>
+			</h4>
+		      </div>
+		      <div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+			  
+			  <!-- start of pane -->
+			  <div class="row">
+			    <div class="col-md-6" id="address_options_tab">
+			    </div>
+			      <!-- start of input field and label -->
+			      <!-- end of input field and label -->
+			  </div>
+			  <!-- end of pane -->
+			</div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+			<h4 class="panel-title" >
+			  <a data-toggle="collapse" href="#collapseOne">
+			    Contact Options
+			  </a>
+			</h4>
+		      </div>
+		      <div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+			  
+			  <!-- start of pane -->
+			  <div class="row">
+			    <div class="col-md-6" id="contact_options_tab">
+			      
+			    </div>
+			  </div>
+			  <!-- end of pane -->
+			</div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+			<h4 class="panel-title" >
+			  <a data-toggle="collapse" href="#collapseOne">
+			    Email Options
+			  </a>
+			</h4>
+		      </div>
+		      <div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+			  
+			  <!-- start of pane -->
+			  <div class="row">
+			    <div class="col-md-6" id="email_options_tab">
+			      <!-- end of input field and label -->
+			    </div>
+			  </div>
+			  <!-- end of pane -->
+			</div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+			<h4 class="panel-title">
+			  <a data-toggle="collapse" href="#collapseTwo">
+			    Phone Options
+			  </a>
+			</h4>
+		      </div>
+		      <div id="collapseTwo" class="panel-collapse collapse in">
+			<div class="panel-body">
+			  
+			  <!-- start of pane -->
+			  <div class="row">
+			    <div class="col-md-6" id="phone_options_tab">
+			      <!-- start of input field and label -->
+			      <!-- end of input field and label -->
+			    </div>
+			  </div>
+			  <!-- end of pane -->
+			</div>
+		      </div>
+		    </div>
+		    
+		  </div>
+		  </div>
+		  
+		  
+		  <div class="tab-pane" id="json_tab">
+		    <div class="panel-group" id="accordion">
+		      <div class="panel panel-default">
+			<div class="panel-heading">
+			  <h4 class="panel-title" >
+			    <a data-toggle="collapse" href="#collapseRequest">
+			      JSON Request
+			    </a>
+			  </h4>
+			</div>
+			<div id="collapseRequest" class="panel-collapse collapse in">
+			  <div class="panel-body">
+			    
+			    <!-- start of pane -->
+			    <div class="row">
+			      <div class="col-md-12">
+				
+				<pre id="request"></pre>
+			      </div>
+			      <!-- start of input field and label -->
+			      <!-- end of input field and label -->
+			    </div>
+			    <!-- end of pane -->
+			  </div>
+			</div>
+		      </div>
+		      <div class="panel panel-default">
+			<div class="panel-heading">
+			  <h4 class="panel-title">
+			    <a data-toggle="collapse" href="#collapseResponse">
+			      JSON Response
+			    </a>
+			  </h4>
+			</div>
+			<div id="collapseResponse" class="panel-collapse collapse in">
+			  <div class="panel-body">
+			    
+			    <!-- start of pane -->
+			    <div class="row">
+			      <div class="col-md-12">
+				<pre id="response"></pre>
+				<!-- start of input field and label -->
+				<!-- end of input field and label -->
+			      </div>
+			    </div>
+			    <!-- end of pane -->
+			  </div>
+			</div>
+		      </div>
+		      
+		    </div>
+		    
+		  </div>
+		  
+		  <div class="tab-pane" id="summary_tab">
+		  </div>
+		  
+		
+		
+
+	      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+	      <button id="validate" type="button" class="btn btn-primary validate pull-right">Submit for verification</button>
+	    </div>
+	    </div>
+	    </div>
+
+	  </div>
+	  		<div class="row">
+		<div class="col-md-12">
+		<h4>Copy this URL to save</h4>
+		<input onclick="this.select();" type="text" class="form-control input-style" id="save_url"  readonly />
+		
+		</div>
+	      </div>
+	</div>
+	
+
+	
+	<div class="col-md-3">	      
+	  <legend>Status</legend>
+	  <textarea id="status" style="width:100%; height:100%; font-size:12px" readonly></textarea>
+	</div>
+	
+      </div>
+      
+    </div>
+    
+    <div class="modal fade" id="send-summary-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Email a summary PDF</h4>
+	  </div>
+	  <div class="modal-body">
+	    <div class="form-group">
+	      <label for="summary-name">Name</label>
+	      <input type="email" class="form-control" id="summary-name" placeholder="Enter Name">
+	    </div>
+	    <div class="form-group">
+	      <label for="summary-email">Email Address</label>
+	      <input type="text" class="form-control" id="summary-email" placeholder="Enter email">
+	    </div>
+	    <input id="email" type="text" class="form-control">
+	      <input id="summary-name" type="text" class="form-control">
+	      <button id="send_summary" class="btn btn-primary" type="button">Email PDF</button>
+	      
+	  </div>
+	  <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </body>
+
+  <div class="loading-modal"></div>
+
+  <script type="text/javascript">
+	  
+	  var summary_tab_source = $("#summary-tab-template").html();
+	  var summary_tab_template = Handlebars.compile(summary_tab_source);
+	  $('#summary_tab').html(summary_tab_template({}));
+	  function type(d) {
+	      d.value = +d.value; // coerce to number
+	      return d;
+	  }
+	  function createMap(geocode) {
+	      var img = $('<img>');
+	      img.attr('src', "http://maps.googleapis.com/maps/api/staticmap?center="+geocode['latitude']+","+geocode['longitude']+"&zoom=14&size=200x200&sensor=false&markers=color:blue%7Clabel:S%7C"+geocode['latitude']+","+geocode['longitude']);
+	      img.appendTo('#map');
+	  }
+	  function createChart(data) {
+	      console.log(data);
+	      var width = 420,
+		  barHeight = 20;
+	      
+	      var x = d3.scale.linear()
+		  .range([0, width]);
+	      
+	      var chart = d3.select(".chart")
+		  .attr("width", width);
+	      
+	      
+	      x.domain([0, d3.max(data, function(d) { return d.value; })]);
+	      
+	      chart.attr("height", barHeight * data.length);
+	      
+	      var bar = chart.selectAll("g")
+		  .data(data)
+		  .enter().append("g")
+		  .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+	      
+	      bar.append("rect")
+		  .attr("width", function(d) { return (x(d.value)/2); })
+		  .attr("height", barHeight - 1)
+		  .attr("class", function(d, i) {return "bar" + d.value;});
+	      
+	      bar.append("text")
+		  .attr("x", 5)
+		  .attr("y", barHeight / 2)
+		  .attr("dy", ".35em")
+		  .text(function(d) { return d.label + " (" + d.value + ")"; })
+		  .style("font-weight", "bold");
+
+	  }
+
+	  
+	  $body = $("body");
+	  
+	  $(document).on({
+	      ajaxStart: function(e) { $body.addClass("loading");  setTimeout(function() { $body.removeClass("loading"); }, 5000);  },
+	      ajaxStop: function() { $body.removeClass("loading"); },
+	      ajaxError:function() { 
+		  $('error_div').show();
+		  $body.removeClass("loading");
+		  setTimeout(function() { $('error_div').hide()}, 5000);
+	      }
+	  });
+	  $('#login').on('click', function(){
+	      $('#nav-info').removeClass('hidden');
+	      $('#nav-username').text($('#credentials\\.username').val());
+	      $('#nav-tenant').text($('#credentials\\.tenant').val());
+	      $('#login-dropdown').show();
+	  });
+	$(".tab-content").prepend(html);
+	  $("#nav .nav").prepend(nav_html);
+	  var response = "";
+    function addOption(id, option){
+	var container = $('<div/>', {class: 'checkbox'}).appendTo(id);
+	var checkbox = document.createElement('input');
+	checkbox.type = "checkbox";
+	checkbox.name = option;
+	checkbox.id = option;
+	
+	var label = document.createElement('label')
+	label.htmlFor = option;
+	label.appendChild(checkbox);
+	label.appendChild(document.createTextNode(option));
+	container.append(label);
+    }
+    
+    function populator(json, nodes){
+	if (json === undefined){
+	    return;
+	}
+	$.each(json, function(key, value){
+	    newNodes = nodes ? nodes.slice() : [];
+	    newNodes.push(key);
+	    if (typeof(value)=="object" && value !== null) {
+		populator(value, newNodes);
+	    } else {
+		var field = $('input[name="' + newNodes.join('.') + '"]');
+		var prev = field.val();
+		if (prev != value && value !== null) {
+		    field.val(value);
+		    console.log('prev:'+prev+"\nnew:"+value);
+		    field.css({"border": 'orange 1px solid'});
+		    if(newNodes[1] !== null && newNodes[1] !== 'codes'){
+			$('li a[href=#'+newNodes[0]+'_tab]').parent().css({"border":'orange 1px solid'});
+			addToSummary(newNodes[0], newNodes.join('.'), prev, value);
+		    }
+		}
+	
+	    }
+	});
+    }
+	  var geocode = {latitude: null, longitude:null};  
+	var summary_source   = $("#summary-template").html();
+	var summary_template = Handlebars.compile(summary_source);
+	  function addToSummary(parent_id, id, prev_val, new_val){
+	      if (id === "address.longitude") {
+		  geocode["longitude"] = new_val;
+	      }
+	      if (id === "address.latitude") {
+		  geocode["latitude"] = new_val;
+	      }
+	      console.log('adding: ' + parent_id + ' ' + name + ' ' + id); 
+	      if ($("label[for='"+id+"']").length < 1) {
+		  console.log('No label for ' + id);
+		  return null ;
+	      }
+	      var name = $("label[for='"+id+"']").text();
+	      
+	      var summary_html = summary_template({name_value: name, previous_value: prev_val, new_value: new_val});
+	      $('#'+parent_id+'_summary').append(summary_html);	      
+	  }
+
+	  
+	  var summary_status_source = $("#summary-status-template").html();
+	  var summary_status_template = Handlebars.compile(summary_status_source);
+	  function addToSummaryStatus(parent_id, code, description) {
+	      var summary_status_html = summary_status_template({status_code: code, status_description: description});
+	      $('#'+parent_id+'_status_summary').append(summary_status_html);	
+	  }
+	  
+    _.each(['NativeOutputScript','UpperCase','LowerCase','PreProcessing','DPV','LASC','GeoCoding','GeoCodingOnly','ShowSuggestions','AllowDuplicateValues','FormatStreetAddress','DetectByLocality','DetectByCountryName'], function(option){ addOption('#address_options_tab',option); });
+    
+	  _.each(['DisableDQCheck', 'IdentityVerify','IdentityEnrichEmail','IdentityVerifyEmail','IdentityEnrichPhone','IdentityVerifyPhone','DQName', 'Watchlist', 'Passport', 'Business','MultiMatch'], function(option){ addOption('#contact_options_tab',option); });
+    
+    _.each(['DQEmail'], function(option){ addOption('#email_options_tab',option); });
+    
+    _.each(['DQPhone'], function(option){ addOption('#phone_options_tab',option); });
+    
+    $('#myTab a').click(function (e) {
+	e.preventDefault()
+	$(this).tab('show')
+    })
+    $("#options_tab_link").insertBefore("#identity_tab_link");
+    var loc = location.href.substr(0,location.href.indexOf('#'));
+    $(document.body).keyup(function (e) {
+	$('#save_url').val(loc + '#' + $('input[name!=credentials\\.password]').serialize().replace(/\+/g,'%20'));
+    })
+    
+    jQuery('input').contents().find(":checkbox").bind('change', function(){        
+	$('#save_url').val(loc + '#' +  $('input[name!=credentials\\.password]').serialize().replace(/\+/g,'%20'));
+    });
+
+	  var presetJustin = {
+	      "address.addressLine1":"500 N. Duke St",
+	      "address.addressLine2":"Durham, NC",
+	      "address.addressLine3":"27701",
+	      "address.address_countryCode": "US"
+	  };
+	  var presetSusanMitchell = {
+	      "address.addressLine1":"11 Alamede CR",
+	      "address.address_countryCode":"CA",
+	      "identity.completename":"Susan Mitchell",
+	      "identity.identity_countryCode":"CA"
+	  };
+	  function loadPreset(preset){
+	      $.each(preset, function(key, value){
+		  console.log(key, value);
+		  try {
+		      document.getElementById(key).value = value;
+		  } catch (exception) {}
+	      });
+	  };
+
+    var hashParams = window.location.hash.substr(1).split('&');
+    for(var i = 0; i < hashParams.length; i++){
+	var p = hashParams[i].split('=');
+	try {
+	    document.getElementById(p[0]).value = decodeURIComponent(p[1]);
+	} catch (exception) {
+	    
+	}
+    }
+$('.alert .close').bind("click", function(e) {
+    $(this).parent().hide();
+});
+	  
+	  $('#pdf').bind('click', function() {
+	      $.form('/demo/pdf', {summary: $('#actual-summary').html())}.submit();
+	  });
+
+	  $('#send_summary').bind('click', function() {
+	      if ($('#email').val() === "") { alert('Please enter an email address.'); return false; }
+	      var form = $.emailForm('/demo/send_summary',$('#email').val(), $('#actual-summary').html());
+	      $('#summary_form').submit(function(event) {
+		  event.preventDefault();
+		  $.ajax({
+		      type: 'POST',
+		      url: '/demo/send_summary',
+		      data: { summary: $(this).find('input[name="summary"]').val(), 
+			      email: $(this).find('input[name="email"]').val() }
+		  });
+		  return false;
+	      });
+	      $('#summary_form').submit();
+	      $('#summary_form').remove();
+	  }); 
+	  
+	  
+	  $('.clear-form').bind('click', function() {
+	      $(':input').not('input[name=credentials\\.password], input[name=credentials\\.username], input[name=credentials\\.tenant]').val('');
+	      
+	      $(':input').css({"border": ''});
+	      $('li').css({"border": ''});
+
+	      var summary_tab_source   = $("#summary-tab-template").html();
+	      var summary_tab_template = Handlebars.compile(summary_tab_source);
+	      $('#summary_tab').html(summary_tab_template({}));
+	      
+	      return false;
+	  });
+	  $('.validate').bind('click', function() {
+//	      if(!$('input[name=credentials\\.password]').val()) { $('#login-dropdown').toggle(); $('input[name=credentials\\.password]').focus(); return false;}
+//	      if(!$('input[name=credentials\\.username]').val()) { $('#login-dropdown').toggle(); $('input[name=credentials\\.username]').focus(); return false;}
+//	      if(!$('input[name=credentials\\.tenant]').val()) { $('#login-dropdown').toggle(); $('input[name=credentials\\.tenant]').focus(); return false;}
+	      if (!$('#phone\\.phone_countryCode').val() &&  !$('#address\\.address_countryCode').val() && !$('#address\\.countryName').val() ) {
+		  $('a[href="#address_tab"]').tab('show');
+		  $('#address\\.address_countryCode').focus();
+		  $("#country-error").show();
+		  return false;
+
+	      }
+	      
+	// Create JSON for request
+	function traverse(jsonObj, str) {
+	    var str = str || "";
+	    if( typeof jsonObj == "object" ) {
+		$.each(jsonObj, function(k,v) {
+		    // k is either an array index or object key
+		    traverse(v, str+"."+k);
+		});
+	    }
+	    else {
+		console.log(str);
+	    }
+	}
+	      var data = [];
+	      function processReliability(id, response){
+		  var reliability = response['Envelope']['Body']['validateResponse']['return'][id]['codes']['reliability'];
+		  if (reliability === "30") {
+		      $('#'+id+'_summary_panel').addClass('panel-danger');
+		      $('#'+id+'_summary_reliability').text('Reliability: 30');
+		      data.push({label: id, value:30});
+		  }
+		  if (reliability === "20") {
+		      $('#'+id+'_summary_panel').addClass('panel-warning');
+		      $('#'+id+'_summary_reliability').text('Reliability: 20');
+		      data.push({label: id, value:20});
+		  }
+		  if (reliability === "10") {
+		      $('#'+id+'_summary_panel').addClass('panel-success');
+		      $('#'+id+'_summary_reliability').text('Reliability: 10');
+		      data.push({label: id, value:10});
+		  }
+	      }
+	// _.each($('[name^=address]:not([name$=inputEmail3])'), function(e){ output += "" + $(e).attr('name').substring($(e).attr('name').indexOf('.') + 1) + ": $('#" + $(e).attr('name') + "').val(),\n";})
+	var reqData = JSON.stringify({input:{
+	    address: {
+		houseNumber: $('#address\\.houseNumber').val(),
+		houseNumberAddition: $('#address\\.houseNumberAddition').val(),
+		postalCode: $('#address\\.postalCode').val(),
+		postTown: $('#address\\.postTown').val(),
+		name: $('#address\\.name').val(),
+		organization: $('#address\\.organization').val(),
+		department: $('#address\\.department').val(),
+		province: $('#address\\.province').val(),
+		subDistrict: $('#address\\.subDistrict').val(),
+		locality: $('#address\\.locality').val(),
+		postBox: $('#address\\.postBox').val(),
+		premise: $('#address\\.premise').val(),
+		countryName: $('#address\\.countryName').val(),
+		address_countryCode: $('#address\\.address_countryCode').val(),
+		addressLine1: $('#address\\.addressLine1').val(),
+		addressLine2: $('#address\\.addressLine2').val(),
+		addressLine3: $('#address\\.addressLine3').val(),
+		addressLine4: $('#address\\.addressLine4').val(),
+		addressLine5: $('#address\\.addressLine5').val(),
+		addressLine6: $('#address\\.addressLine6').val(),
+		addressLine7: $('#address\\.addressLine7').val(),
+		addressLine8: $('#address\\.addressLine8').val(),
+		addressLine9: $('#address\\.addressLine9').val(),
+		addressLine10: $('#address\\.addressLine10').val(),
+		hausCode: $('#address\\.hausCode').val(),
+		municipalityCode: $('#address\\.municipalityCode').val(),
+		eggCode: $('#address\\.eggCode').val(),
+		lacsIndicator: $('#address\\.lacsIndicator').val(),
+		codes: {}
+	    },
+	    email: {
+		full_email_address: $('#email\\.full_email_address').val(),
+		addressee: $('#email\\.addressee').val(),
+		domain: $('#email\\.domain').val(),
+		top_level: $('#email\\.top_level').val(),
+		codes: {}
+	    },
+	    identity: {
+		nationality: $('#identity\\.nationality').val(),
+		dob: $('#identity\\.dob').val(),
+		nationalid: $('#identity\\.nationalid').val(),
+		contact_type: $('#identity\\.contact_type').val(),
+		organization_name: $('#identity\\.organization_name').val(),
+		gender: $('#identity\\.gender').val(),
+		surname_first: $('#identity\\.surname_first').val(),
+		givenfullname: $('#identity\\.givenfullname').val(),
+		completename: $('#identity\\.completename').val(),
+		surname_prefix_first: $('#identity\\.surname_prefix_first').val(),
+		surname_prefix_second: $('#identity\\.surname_prefix_second').val(),
+		givennameinitials: $('#identity\\.givennameinitials').val(),
+		indicator: $('#identity\\.indicator').val(),
+		formofaddress: $('#identity\\.formofaddress').val(),
+		qualificationpreceding: $('#identity\\.qualificationpreceding').val(),
+		qualification_int_first: $('#identity\\.qualification_int_first').val(),
+		qualification_int_second: $('#identity\\.qualification_int_second').val(),
+		qualification_suceeding: $('#identity\\.qualification_suceeding').val(),
+		name_qualified: $('#identity\\.name_qualified').val(),
+		function: $('#identity\\.function').val(),
+		codes: {}
+	    },
+	    phone: {
+		phone_number: $('#phone\\.phone_number').val(),
+		calling_from: $('#phone\\.calling_from').val(),
+		phone_countryCode: $('#phone\\.phone_countryCode').val(),
+		formatted_international: $('#phone\\.formatted_international').val(),
+		line_type: $('#phone\\.line_type').val(),
+		international_prefix: $('#phone\\.international_prefix').val(),
+		calling_code: $('#phone\\.calling_code').val(),
+		trunk: $('#phone\\.trunk').val(),
+		area_code: $('#phone\\.area_code').val(),
+		number: $('#phone\\.number').val(),
+		codes: {}
+	    },
+	    credentials: {
+		username: $('#credentials\\.username').val(),
+		password: $('#credentials\\.password').val(),
+		tenant: $('#credentials\\.tenant').val()
+	    },
+	    options: _.map($('#options_tab input:checked[type=checkbox]'), function(n){ return $(n).attr('name'); }).join(';')
+	}}, undefined, 2);
+	
+	
+	
+	$('#request').html(reqData);
+	$.ajax('/ajax/json/validate', {
+	    type: 'POST',
+	    contentType: 'text/json',
+	    timeout:5000,
+	    data: reqData,
+	    complete: function(d) {
+
+		populator(d.responseJSON['Envelope']['Body']['validateResponse']['return']);
+
+		$('#response').html(JSON.stringify(d.responseJSON, undefined, 2));
+		console.log(d);
+		var status_string = "";
+		
+		var addr_msg = d.responseJSON['Envelope']['Body']['validateResponse']['return']['address']['codes']['messages'];
+		var ident_msg = d.responseJSON['Envelope']['Body']['validateResponse']['return']['identity']['codes']['messages'];
+		var email_msg = d.responseJSON['Envelope']['Body']['validateResponse']['return']['email']['codes']['messages'];
+		var phone_msg = d.responseJSON['Envelope']['Body']['validateResponse']['return']['phone']['codes']['messages'];
+		status_string += "Identity\n";
+		if( Object.prototype.toString.call( ident_msg ) === '[object Array]' ){
+		    for(i in ident_msg){
+			status_string += "Code: "+ident_msg[i]['code']+"\n\tDescription: "+ident_msg[i]['value']+" \n";
+			addToSummaryStatus('identity',ident_msg[i]['code'],ident_msg[i]['value']);
+		    }
+		} else if(ident_msg !== undefined) {
+		    status_string += "Code: "+ident_msg['code']+"\n\tDescription: "+ident_msg['value']+"\n";
+		    addToSummaryStatus('identity',ident_msg['code'],ident_msg['value']);
+		}
+		status_string += "\nAddress\n";
+		if( Object.prototype.toString.call( addr_msg ) === '[object Array]' ){
+		    
+		    for(i in addr_msg){
+			status_string += "Code: "+addr_msg[i]['code']+"\n\tDescription: "+addr_msg[i]['value']+" \n"
+			addToSummaryStatus('address',addr_msg[i]['code'],addr_msg[i]['value']);
+		    }
+		} else if(addr_msg !== undefined) {
+		    status_string += "Code: "+addr_msg['code']+"\n\tDescription: "+addr_msg['value']+"\n";
+		    addToSummaryStatus('address',addr_msg['code'],addr_msg['value']);
+		}
+		status_string += "\nEmail\n";
+		if( Object.prototype.toString.call( email_msg ) === '[object Array]' ){
+		    
+		    for(i in email_msg){
+			status_string += "Code: "+email_msg[i]['code']+"\n\tDescription: "+email_msg[i]['value']+" \n"
+			addToSummaryStatus('email',email_msg[i]['code'],email_msg[i]['value']);
+		    }
+		} else if(email_msg !== undefined) {
+		    status_string += "Code: "+email_msg['code']+"\n\tDescription: "+email_msg['value']+"\n";
+		    addToSummaryStatus('email',email_msg['code'],email_msg['value']);
+		}
+		status_string += "\nPhone\n";
+		if( Object.prototype.toString.call( phone_msg ) === '[object Array]' ){
+		    for(i in phone_msg){
+			status_string += "Code: "+phone_msg[i]['code']+"\n\tDescription: "+phone_msg[i]['value']+" \n"
+			addToSummaryStatus('phone',phone_msg[i]['code'],phone_msg[i]['value']);
+		    }
+		} else if(phone_msg !== undefined) {
+		    status_string += "Code: "+phone_msg['code']+"\n\tDescription: "+phone_msg['value']+"\n";
+		    addToSummaryStatus('phone',phone_msg['code'],phone_msg['value']);
+		}
+
+		processReliability('address', d.responseJSON);
+		processReliability('identity', d.responseJSON);
+		processReliability('email', d.responseJSON);
+		processReliability('phone', d.responseJSON);
+
+		
+		createChart(data);
+		if (geocode.latitude !== null) {
+		    createMap(geocode);
+		}
+		$('#status').val(status_string);
+	    }
+	});
+	return false; // Prevent form submit.
+    });
+    //$('#save_url').val($('input[name!=password]').serialize());
+  </script>
+</html>

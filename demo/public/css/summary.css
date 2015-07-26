@@ -1,0 +1,188 @@
+
+.loading-modal {
+    display:    block;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+    url('http://i.stack.imgur.com/FhHRx.gif')
+    50% 50%
+    no-repeat;
+}
+
+.chart text {
+    fill: black;
+    font: 10px sans-serif;
+    text-anchor: start;
+}
+
+.bar10 { fill: #dff0d8; }
+.bar20 { fill: #fcf8e3; }
+.bar30 { fill: #f2dede; }
+
+.r10 {background-color: green}
+.r20 {background-color: orange}
+.r30 {background-color: red}
+
+.chart {
+    background: #eee;
+    padding: 3px;
+}
+
+.chart div {
+    width: 0;
+    transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -webkit-transition: all 1s ease-out;
+}
+
+.chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 5px;
+    color: white;
+    box-shadow: 2px 2px 2px #666;
+}
+
+.response {
+    border-color: orange;
+}
+
+.input-style {
+    font-size: 12px;
+}
+body { padding-top: 70px; }
+#credentials-form {
+    min-width:240px;
+}
+.navbar-btn{
+    margin-left:10px;
+}
+.nav-tabs>li>a {
+    background-color: #FBFBFB;
+    border-color: #eeeeee;
+}
+
+.btn-group{
+    margin-left:10px;
+}
+.tree {
+    min-height:20px;
+    margin-bottom:20px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+.tree li {
+    list-style-type:none;
+    margin:0;
+    padding:5px 0px 0 17px;
+    position:relative
+}
+.tree li::before, .tree li::after {
+    content:'';
+    left:-20px;
+    position:absolute;
+    right:auto
+}
+.tree li::before {
+    bottom:50px;
+    height:100%;
+    top:0;
+    width:1px
+}
+.tree li::after {
+    height:20px;
+    top:25px;
+    width:25px
+}
+.tree li span {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border:1px solid #999;
+    border-radius:5px;
+    display:inline-block;
+    padding:3px 8px;
+    text-decoration:none
+}
+.tree li.parent_li>span {
+    cursor:pointer
+}
+.tree>ul>li::before, .tree>ul>li::after {
+    border:0
+}
+.tree li:last-child::before {
+    height:30px
+}
+.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+    background:#eee;
+    border:1px solid #94a0b4;
+    color:#000
+}
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #428bca;
+}
+body {
+    margin-top: -90px;
+}
+.summary-jumbotron {
+    height: 270px;
+    position: relative;
+    text-align: center;
+    font-size: 100px;
+    display: block;
+    margin-top: -30px;
+}
+/*
+.summary-jumbotron h1 {
+    color: #000;
+    background-color: rgba(255,255,255,0.7);
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin: 0;
+    margin-top: -50px;
+    line-height: 100px;
+}*/
+
+.summary-jumbotron img {
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.summary-jumbotron h3 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.summary-jumbotron h1 {
+    margin-top: -50px;
+}
+
+.summary-map {
+    width: 370px;
+    height: 200px;
+}
+.summary-map img {
+    width: 100%;
+    height: 100%;
+}
+.panel-title small {
+    color: #FFF;
+}
+
+.well {
+    border-color: orange;
+}

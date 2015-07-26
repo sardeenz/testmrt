@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <p>Data passed</p>
+    <pre id="passed">
+    </pre>
+</div>
+<div>
+    <p>Data returned</p>
+    <pre id="returned">
+
+    </pre>
+</div>
+</body>
+<script>
+    // URL for the manual review tool to embed
+    var mrtURL = 'http://localhost:4567/demo/index.html#/embed';
+
+    // Base URL used for sending cross origin messages
+    // Also used to verify that the incoming message events are
+    // from the right origin
+    var mrtBaseURL = 'http://localhost:4567';
+
+
+    // Open the Manual Review Tool in a popup window
+    // You will probably have to allow popups the first time you load the page
+    var popup = window.open(mrtURL);
+
+
+    // Data to pass to the Manual Review Tool
+    var testData = {
+        input: {
+            address: {
+                addressLine1: '420 9th Ave',
+                addressLine2: 'New York, New York',
+                locality: '',
+                province: '',
+                postalCode: '',
+                countryCode: 'US'
+            },
+            identity: {
+                completename: 'Justin Williams',
+                dob: '19880804',
+                nationalid: ''
+            },
+            email: {
+                full_email_address: 'michael.jackson@gmail.com'
+            },
+            phone: {
+                phone_number: '9196011428',
+                calling_from: 'US'
+            },
+            options: ''
+        },
+        configuration: {
+            mode: 'simplified',
+            token: 'TESTTOKEN',
+            submit: true
+        }
+    };
+
+    // This just sets the tag on the page with the data you are sending to the Manual Review Tool
+    // Not required
+    $('#passed').text(JSON.stringify(testData));
+
+
+    // A 500 millisecond timeout to ensure the popup has had time to load
+    setTimeout(function(){
+
+        // This sends a message to the Manual Review Tool containing
+        // the data to use for verification
+        popup.postMessage(testData, mrtBaseURL);
+
+    }, 2000);
+
+
+    // You must define some event handler for processing the data returned
+    // by the Manual Review Tool
+    function receiveMessage(event)
+    {
+        // Logic for checking the origin of the event.
+        // If it doesn't match, we don't want to handle the event.
+        if (event.origin !== mrtBaseURL)
+            return;
+
+        // event.data contains the returned data from the manual review tool
+        var returnedData = event.data;
+
+        // Just rendering out to the page for testing currently
+        $('#returned').text(JSON.stringify(returnedData));
+    }
+
+    // Add the event handler to the window.
+    window.addEventListener("message", receiveMessage, false);
+</script>
+</html>
