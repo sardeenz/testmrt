@@ -1,6 +1,0 @@
-{
- "json_endpoint": "/",
- "messageService": "http://portal2.globaldataconsortium.com:7734/messageService-4.0.1/lookup",
- "admin_tenants": ["jg"]
-}
-

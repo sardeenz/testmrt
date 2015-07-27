@@ -3,7 +3,6 @@
     "referencenotenant": "local",
     "crntenant": [
         "demo",
-        "local",
         "timmy",
         "joey"
     ]
