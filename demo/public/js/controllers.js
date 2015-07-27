@@ -574,6 +574,14 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
         };
     },
 
+    $scope.undoForm = function(){
+        var old = angular.copy($scope.old_input);
+
+        $scope.clearForm();
+        $scope.input = old;
+        $scope.selection = $scope.old_options;
+    },
+
     $scope.toggleDropdown = function($event) {
         $event.preventDefault();
         $event.stopPropagation();

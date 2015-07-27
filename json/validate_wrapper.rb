@@ -78,9 +78,9 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
 #  file = File.new( "test.xml" )
 #  doc = REXML::Document.new file
   url = URI.parse(@config['worldview_api'])
-  configfile = @config['crntenant']
-  puts "configfile\n"
-  puts configfile
+  # configfile = @config['crntenant']
+  # puts "configfile\n"
+  # puts configfile
 
   # Address
   doc.get_elements("//address/addressLine1").first.text = @json['input']['address']['addressLine1']
@@ -179,12 +179,22 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   @parsed = JSON.parse(string) # returns a hash
   @wsid = @parsed["Envelope"]["Body"]["validateResponse"]["return"]["address"]["codes"]["detailCode"]
   
-  puts "configfile\n"
-  puts configfile
-
- if @json['input']['credentials']['tenant'].to_s.include? configfile 
+  # puts "configfile\n"
+  # puts configfile
+  outputFileReceipient = "";
+  puts outputFileReceipient.class
+  
+  @config['crntenant'].each { 
+    |x| if @json['input']['credentials']['tenant'].eql? x 
+    outputFileReceipient = @json['input']['credentials']['tenant']
+  end
+  }
+if outputFileReceipient.nil? 
+  puts "not crntenant exists in json.config.json file"
+else 
+ if @json['input']['credentials']['tenant'].eql? outputFileReceipient
    LOGGER.info("#{doc.get_elements("//address/codes/messages/value").first.text}:#{@wsid}")
  end
-  
+end
   soap_xml_response.to_json
 end

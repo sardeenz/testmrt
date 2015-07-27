@@ -1,5 +1,11 @@
 {
     "worldview_api": "http://api.globaldataconsortium.com:8080/wvservice-4.0.1/validate",
-    "referencenotenant": "local"
+    "referencenotenant": "local",
+    "crntenant": [
+        "demo",
+        "local",
+        "timmy",
+        "joey"
+    ]
 }
 
