@@ -360,6 +360,8 @@ var empty_input = {
 
     }
 };
+
+var submitLogin = "submitLogin";
 var appControllers = angular.module('appControllers', []);
 
 
@@ -463,7 +465,7 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
         }
 
         console.log($scope.input['options']);
-        console.log($scope.token['token']);
+        console.log("$scope.token['token'] + " + $scope.token['token']);
         //$http.post('http://localhost:8080/validate', {input: $scope.input, token: $scope.token['token']}).
         $http.post($scope.json_endpoint+'/json/validate', {input: $scope.input, token: $scope.token['token']}).    
             success(function(data, status, headers, config) {
@@ -988,7 +990,7 @@ appControllers.controller('NavCtrl', ['$scope', '$http', '$cookies', 'User', 'co
         // console.log("raw loginoptions" + scope.crntenant['loginoptions']);
         // console.log("loginoptions" + $scope.input['options']);
 
-        $http.post($scope.json_endpoint+'/json/validate', {input: empty_input}).
+        $http.post($scope.json_endpoint+'/json/validate', {input: empty_input, login: submitLogin}).
             success(function(data, status, headers, config) {
                 $scope.response = true;
                 $scope.input = data['Envelope']['Body']['validateResponse']['return'];

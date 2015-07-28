@@ -3,9 +3,9 @@ require 'json'
 require 'sinatra'
 require 'net/http'
 require_relative 'mrt_logger.rb'
-
-
 require "rexml/document"
+
+
 file = File.new( "test.xml" )
 doc = REXML::Document.new file
 
@@ -51,6 +51,8 @@ post '/validate' do
 
   content_type :json
   @json = JSON.parse(request.body.read)
+
+  @submitLogin = @json['login']
 
   if Gem.win_platform?
     @tokens = JSON.parse(File.read("Z:/json/tokens.json"))
@@ -167,32 +169,38 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   request = Net::HTTP::Post.new(url.path)
   request.body = doc.to_s
   request["Content-Type"] = "text/xml"
-  print "request\n"
-  print doc.to_s
+#  print "request\n"
+#  print doc.to_s
   response = Net::HTTP.start(url.host, url.port) {|http| http.request(request)}
   
   soap_xml_response = Hash.from_xml(response.body)
-  print "response\n"
-  print soap_xml_response.to_json
+#  print "response\n"
+#  print soap_xml_response.to_json
 
   string = soap_xml_response.to_json.to_s
   @parsed = JSON.parse(string) # returns a hash
   @wsid = @parsed["Envelope"]["Body"]["validateResponse"]["return"]["address"]["codes"]["detailCode"]
   
-  # puts "configfile\n"
-  # puts configfile
   outputFileReceipient = "";
-  puts outputFileReceipient.class
   
   @config['crntenant'].each { 
     |x| if @json['input']['credentials']['tenant'].eql? x 
     outputFileReceipient = @json['input']['credentials']['tenant']
   end
   }
+
+  if @submitLogin.to_s != "submitLogin"
+    puts "joe is joe not equal"
+  end
+
+  if @submitLogin.to_s == "submitLogin"
+    puts "joe is joe equals equals"
+  end
+
 if outputFileReceipient.nil? 
   puts "not crntenant exists in json.config.json file"
 else 
- if @json['input']['credentials']['tenant'].eql? outputFileReceipient
+ if (@json['input']['credentials']['tenant'].eql? outputFileReceipient) && @submitLogin != "submitLogin"
    LOGGER.info("#{doc.get_elements("//address/codes/messages/value").first.text}:#{@wsid}")
  end
 end
