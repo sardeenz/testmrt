@@ -426,6 +426,7 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
     $scope.response = false,
     $scope.summaryActive = {active:false},
     $scope.old_input = {},
+    $scope.old_options = [],
     $scope.custom_options_text = "",
     $scope.summaryDisabled = true,
     $scope.summaryTooltip = "You must submit before viewing a summary",
@@ -471,6 +472,7 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
             success(function(data, status, headers, config) {
                 $scope.response = true;
                 angular.copy($scope.input, $scope.old_input);
+                $scope.old_options = $scope.selection;
                 $scope.input = data['Envelope']['Body']['validateResponse']['return'];
                 console.log($scope.input);
                 $scope.tabs[0].active = false;
@@ -986,7 +988,7 @@ appControllers.controller('NavCtrl', ['$scope', '$http', '$cookies', 'User', 'co
         $scope.input['credentials']['tenant'] = $scope.credentials['tenant'];
         
         //$scope.input['options'] = $scope.crntenant['loginoptions'];
-        $scope.input['options'] = "PostCredit;DisableDQChecks"
+        $scope.input['options'] = "PostCredit;DisableDQChecks;Hippie"
         // console.log("raw loginoptions" + scope.crntenant['loginoptions']);
         // console.log("loginoptions" + $scope.input['options']);
 

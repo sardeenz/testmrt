@@ -96,8 +96,11 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   doc.get_elements("//address/addressLine8").first.text = @json['input']['address']['addressLine8']
   doc.get_elements("//address/addressLine9").first.text = @json['input']['address']['addressLine9']
   # CHF 7/21/2015 added these two lines to accept CRN - customer reference number
-  doc.get_elements("//address/codes/messages/code").first.text = "CRN:Reference Number for #{@json['input']['credentials']['tenant']}"
-  doc.get_elements("//address/codes/messages/value").first.text = "CRN:#{@json['input']['identity']['referenceno']}:#{@json['input']['credentials']['username']}:#{@json['input']['credentials']['tenant']}"
+  if @json['input']['identity']['referenceno'].nil?
+    puts "refnum is not null"
+    doc.get_elements("//address/codes/messages/code").first.text = "CRN:Reference Number for #{@json['input']['credentials']['tenant']}"
+    doc.get_elements("//address/codes/messages/value").first.text = "CRN:#{@json['input']['identity']['referenceno']}:#{@json['input']['credentials']['username']}:#{@json['input']['credentials']['tenant']}"
+  end
   doc.get_elements("//address/countryCode").first.text = @json['input']['address']['countryCode']
   doc.get_elements("//address/countryName").first.text = @json['input']['address']['countryName']
   doc.get_elements("//address/countryCode").first.text = @json['input']['address']['countryCode']
@@ -170,7 +173,7 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   request.body = doc.to_s
   request["Content-Type"] = "text/xml"
 #  print "request\n"
-#  print doc.to_s
+  print doc.to_s
   response = Net::HTTP.start(url.host, url.port) {|http| http.request(request)}
   
   soap_xml_response = Hash.from_xml(response.body)
@@ -183,19 +186,13 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   
   outputFileReceipient = "";
   
+if @config['crntenant'].nil?
   @config['crntenant'].each { 
     |x| if @json['input']['credentials']['tenant'].eql? x 
     outputFileReceipient = @json['input']['credentials']['tenant']
   end
   }
-
-  if @submitLogin.to_s != "submitLogin"
-    puts "joe is joe not equal"
-  end
-
-  if @submitLogin.to_s == "submitLogin"
-    puts "joe is joe equals equals"
-  end
+end
 
 if outputFileReceipient.nil? 
   puts "not crntenant exists in json.config.json file"
