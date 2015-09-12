@@ -276,6 +276,24 @@ var tabs_global = [
             }
         ]}
 ];
+
+var test_input = 
+      {
+         "address": {
+             "addressLine1": "A P D COMMUNICATIONS LTD,UNIT 1",
+             "addressLine10": null,
+             "addressLine2": "1B NEWLANDS SCIENCE PARK",
+             "locality": "hull",
+             "postalCode": "HU6 7TQ",
+             "countryCode": "GB"
+         },
+         "credentials": {
+             "username": "local",
+             "password": "irce123",
+             "tenant": "local"
+         }
+      };
+
 var empty_input = {
     address: {
         houseNumber: "",
@@ -370,6 +388,7 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
     $scope.tabs_global = tabs_global,
     $scope.tabs = tabs,
     $scope.input = angular.copy(empty_input),
+    //$scope.input = angular.copy(test_input),
     $scope.optionsActive = false,
     $scope.shared = {loading: false};
 
@@ -457,6 +476,7 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
         $scope.optionsActive = false;
         $scope.removeNulls($scope.input);
         $scope.input = merge($scope.input,empty_input);
+        //$scope.input = merge($scope.input,test_input);
         $scope.input['credentials']['username'] = $scope.credentials['username'];
         $scope.input['credentials']['password'] = $scope.credentials['password'];
         $scope.input['credentials']['tenant'] = $scope.credentials['tenant'];
@@ -465,15 +485,22 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
             $scope.input['options'] = $scope.input['options'] + ";" + $scope.custom_options.text;
         }
 
-        console.log($scope.input['options']);
+        //console.log($scope.input['options']);
+        console.log("here is the request object of $scope.input");
+        console.log($scope.input);
         console.log("$scope.token['token'] + " + $scope.token['token']);
         //$http.post('http://localhost:8080/validate', {input: $scope.input, token: $scope.token['token']}).
         $http.post($scope.json_endpoint+'/json/validate', {input: $scope.input, token: $scope.token['token']}).    
             success(function(data, status, headers, config) {
+                console.log("here we are" + $scope.input);
                 $scope.response = true;
                 angular.copy($scope.input, $scope.old_input);
                 $scope.old_options = $scope.selection;
                 $scope.input = data['Envelope']['Body']['validateResponse']['return'];
+                // if $scope.input is null, throw a nice friendly error
+                // if $scope.input == null {
+                //     alert('There was a problem getting a response from Worldview.');
+                // }
                 console.log($scope.input);
                 $scope.tabs[0].active = false;
                 $scope.summaryActive = {active:true};
@@ -507,15 +534,16 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
 
                 $scope.updated.address = true;
 
-
-
-
                 $scope.detail_list = [];
                 $scope.parseDetailList = function (list) {
-                    if (list.substring(0,5) == 'ITEM='){
-                        list = list.substr(5);
-                    }
-                    return list.split("|").map(function(v){return v.split("=")});
+                    //if (!! list) {
+                        if (list.substring(0,5) == 'ITEM='){
+                            list = list.substr(5);
+                        }
+                    //}
+                    // split by regex - so we can split by : and =
+                    return list.split("|").map(function(v){return v.split(/[=:]/)});
+                    //return list.split("|").map(function(v){return v.split("=")});
                 }
                 console.log($scope.input);
                 if ($scope.input['address']['codes']['detail_list'] !== null || $scope.input['email']['codes']['detail_list'] !== null || $scope.input['phone']['codes']['detail_list'] !== null || $scope.input['identity']['codes']['detail_list'] !== null ) {
@@ -547,7 +575,9 @@ appControllers.controller('BasicViewCtrl', ['$scope', '$http', '$location', '_',
     $scope.setPreset = function(preset){
         $scope.clearForm();
         $scope.input = merge($scope.presets[preset]['preset'],empty_input);
-        console.log($scope.presets[preset]['options']);
+        console.log("CHAD WAS HERE OPTIONS" + $scope.presets[preset]['options']);
+        console.log("CHAD WAS HERE PRESET" + $scope.presets[preset]['preset']);
+
         for(var option in $scope.presets[preset]['options']){
             $scope.toggleSelection($scope.presets[preset]['options'][option]);
         }
@@ -973,9 +1003,7 @@ appControllers.controller('NavCtrl', ['$scope', '$http', '$cookies', 'User', 'co
 
     configService.async().then(function(d) {
         $scope.json_endpoint = d['json_endpoint'];
-        //$scope.crntenant = d['crntenant'];
         $scope.crntenant = d['crntenant'];
-
     })
 
     $scope.submitFormCheckCredentials = function(){

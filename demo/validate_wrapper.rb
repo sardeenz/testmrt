@@ -51,7 +51,7 @@ class Demo < Sinatra::Base
         f.write("#{name},#{email},#{phone},#{company}\n")
       }
     else
-      File.open("/Users/jg/emails.csv", 'a') {|f|
+      File.open("./emails.csv", 'a') {|f|
         f.write("#{name},#{email},#{phone},#{company}\n")
       }
     end
@@ -131,12 +131,18 @@ HTML
     mail.attach(file, 'application/pdf')
     #    mail.attach("/some/other/file")
 
-    smtp = Net::SMTP.new 'smtp.1and1.com', 25
+    # smtp = Net::SMTP.new 'smtp.1and1.com', 25
+    # #smtp.enable_starttls
+    # smtp.start('globaldataconsortium.com', 'worldview@globaldataconsortium.com', 'gdc12345!', :login) { | smtp|
+    #   smtp.send_message(mail.to_s(), 'worldview@globaldataconsortium.com', email, 'sales@globaldataconsortium.com', 'justinlgrimes@gmail.com')
+    # }
+
+    smtp = Net::SMTP.new 'in-v3.mailjet.com', 25
     #smtp.enable_starttls
-    smtp.start('globaldataconsortium.com', 'worldview@globaldataconsortium.com', 'gdc12345!', :login) { | smtp|
-      smtp.send_message(mail.to_s(), 'worldview@globaldataconsortium.com', email, 'sales@globaldataconsortium.com', 'justinlgrimes@gmail.com')
+    smtp.start('globaldataconsortium.com', '90c18e76ca2b443a27a6f527c4d36ecd', 'bbd5c4abc32c1ef54659680f9d26657a', :login) { | smtp|
+      smtp.send_message(mail.to_s(), 'worldview@globaldataconsortium.com', email, 'chfoley1@gmail.com', 'sardeenz@gmail.com')
     }
-    
+
   end
   
   post "/pdf" do

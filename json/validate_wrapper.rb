@@ -39,6 +39,8 @@ before do
   response.headers["Access-Control-Allow-Origin"] = "*"
 end
 post '/validate' do
+  puts "response.headers"
+  puts response.headers
 
   war_name = File.basename(File.dirname(__FILE__))
 
@@ -52,6 +54,8 @@ post '/validate' do
   content_type :json
   @json = JSON.parse(request.body.read)
 
+  puts "json login"
+  puts @json['login']
   @submitLogin = @json['login']
 
   if Gem.win_platform?
@@ -80,7 +84,7 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
 #  file = File.new( "test.xml" )
 #  doc = REXML::Document.new file
   url = URI.parse(@config['worldview_api'])
-  # configfile = @config['crntenant']
+  #configfile = @config['crntenant']
   # puts "configfile\n"
   # puts configfile
 
@@ -96,8 +100,8 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   doc.get_elements("//address/addressLine8").first.text = @json['input']['address']['addressLine8']
   doc.get_elements("//address/addressLine9").first.text = @json['input']['address']['addressLine9']
   # CHF 7/21/2015 added these two lines to accept CRN - customer reference number
-  if @json['input']['identity']['referenceno'].nil?
-    puts "refnum is not null"
+  unless @json['input']['identity']['referenceno'].nil?
+    #puts "refnum is not null " + @json['input']['identity']['referenceno']
     doc.get_elements("//address/codes/messages/code").first.text = "CRN:Reference Number for #{@json['input']['credentials']['tenant']}"
     doc.get_elements("//address/codes/messages/value").first.text = "CRN:#{@json['input']['identity']['referenceno']}:#{@json['input']['credentials']['username']}:#{@json['input']['credentials']['tenant']}"
   end
@@ -171,32 +175,44 @@ time = DateTime.parse(time).strftime("%m-%d-%Y %H:%M:%S")
   
   request = Net::HTTP::Post.new(url.path)
   request.body = doc.to_s
-  request["Content-Type"] = "text/xml"
+  #request["Content-Type"] = "text/xml"
+  request["Content-Type"] = "text/json"
 #  print "request\n"
   print doc.to_s
   response = Net::HTTP.start(url.host, url.port) {|http| http.request(request)}
   
   soap_xml_response = Hash.from_xml(response.body)
-#  print "response\n"
-#  print soap_xml_response.to_json
+  print "response\n"
+  print soap_xml_response
 
   string = soap_xml_response.to_json.to_s
-  @parsed = JSON.parse(string) # returns a hash
-  @wsid = @parsed["Envelope"]["Body"]["validateResponse"]["return"]["address"]["codes"]["detailCode"]
-  
-  outputFileReceipient = "";
-  
+  # @parsed = JSON.parse(string) # returns a hash
+  # @wsid = @parsed["Envelope"]["Body"]["validateResponse"]["return"]["address"]["codes"]["detailCode"]
+
+  outputFileReceipient = ""
+
 if @config['crntenant'].nil?
+  puts "no crntenant exists in json.config.json file\n"
+else
   @config['crntenant'].each { 
-    |x| if @json['input']['credentials']['tenant'].eql? x 
+    |x| if @json['input']['credentials']['tenant'] == x 
     outputFileReceipient = @json['input']['credentials']['tenant']
   end
   }
 end
 
 if outputFileReceipient.nil? 
-  puts "not crntenant exists in json.config.json file"
+  puts "no crntenant exists in json.config.json file\n"
 else 
+  puts "we made it here"
+  puts "outputFileReceipient\n"
+  puts outputFileReceipient
+  puts "tenant\n"
+  puts @json['input']['credentials']['tenant']
+  puts "config file\n"
+  puts @config['crntenant']
+  puts "submitlogin"
+  puts @submitLogin
  if (@json['input']['credentials']['tenant'].eql? outputFileReceipient) && @submitLogin != "submitLogin"
    LOGGER.info("#{doc.get_elements("//address/codes/messages/value").first.text}:#{@wsid}")
  end
