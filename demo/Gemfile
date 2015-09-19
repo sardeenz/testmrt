@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'builder'
 gem 'sinatra'
-gem 'warbler'
+#gem 'warbler'
 gem 'sinatra-contrib'
 gem 'rack'
 gem 'pdfkit'
