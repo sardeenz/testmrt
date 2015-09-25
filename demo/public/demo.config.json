@@ -1,0 +1,230 @@
+{
+    "input": {
+        "address": {
+            "countryCode": "US"
+        },
+        "phone": {
+            "calling_from": "US",
+            "calling_code": "US",
+            "phone_countryCode": "US"
+        }
+    },
+    "options": {
+        "full": [
+            {
+                "name": "Address Options",
+                "options": [
+                    "CRN",
+                    "1NativeOutputScript",
+                    "UpperCase",
+                    "LowerCase",
+                    "PreProcessing",
+                    "DPV",
+                    "LASC",
+                    "GeoCoding",
+                    "GeoCodingOnly",
+                    "ShowSuggestions",
+                    "AllowDuplicateValues",
+                    "FormatStreetAddress",
+                    "DetectByLocality",
+                    "DetectByCountryName"
+                ]
+            },
+            {
+                "name": "Contact Options",
+                "options": [
+                    "DisableDQChecks",
+                    "IdentityVerify",
+                    "IdentityEnrichEmail",
+                    "IdentityVerifyEmail",
+                    "IdentityEnrichPhone",
+                    "IdentityVerifyPhone",
+                    "DQName",
+                    "Watchlist",
+                    "Passport",
+                    "Business",
+                    "MultiMatch"
+                ]
+            },
+            {
+                "name": "Email Options",
+                "options": [
+                    "DQEmail"
+                ]
+            },
+            {
+                "name": "Phone Options",
+                "options": [
+                    "DQPhone"
+                ]
+            }
+        ],
+        "simplified": [
+            {
+                "option": "DisableDQChecks",
+                "text": "Disable all DQ Checks"
+            },
+            {
+                "option": "IdentityVerify",
+                "text": "Verify Identity"
+            },
+            {
+                "option": "GeoCoding",
+                "text": "Geocoding"
+            },
+            {
+                "option": "DQResults",
+                "text": "Check all DQ Results after Identity Check"
+            },
+            {
+                "option": "IdentityEnrich",
+                "text": "Enrich Identity"
+            },
+            {
+                "option": "DQAddressResults",
+                "text": "Check Address Results after Identity Check"
+            },
+            {
+                "option": "custom",
+                "text": "Other (Multiples separated by a semicolon)"
+            },
+            {
+                "option": "OutputExtendedDetail",
+                "text": "Output Extended Detail"
+            }
+        ]
+    },
+    "presets": [
+        {
+            "name": "SSusan Mitchell (CA)",
+            "preset": {
+                "address": {
+                    "addressLine1": "203 Lynnview",
+                    "addressLine2": "Calgary, AB",
+                    "addressLine3": "T2C2C6",
+                    "countryCode": "CA"
+                },
+                "identity": {
+                    "completename": "SSusan Mitchell",
+                    "dob": "19660709"
+                }
+            },
+            "options": [
+                "IdentityVerify",
+                "GeoCoding"
+            ]
+        },
+        {
+            "name": "John Smith (AU)",
+            "preset": {
+                "address": {
+                    "addressLine1": "10 Lawford",
+                    "addressLine2": "Doncaster",
+                    "addressLine3": "3108",
+                    "countryCode": "AU"
+                },
+                "identity": {
+                    "completename": "John Henry Smith",
+                    "dob": "19830305"
+                }
+            },
+            "options": [
+                "IdentityVerify",
+                "GeoCoding"
+            ]
+        },
+        {
+            "name": "Justin Williams (US)",
+            "preset": {
+                "address": {
+                    "addressLine1": "420 9th Ave",
+                    "addressLine2": "New York, New York",
+                    "addressLine3": "10001",
+                    "countryCode": "US"
+                },
+                "identity": {
+                    "completename": "Justin Williams",
+                    "dob": "08/04/1988"
+                },
+                "email": {
+                    "full_email_address": "michael.jackson@gmail.com"
+                },
+                "phone": {
+                    "calling_from": "US",
+                    "phone_number": "9196011428",
+                    "countryCode": "US"
+                }
+            },
+            "options": [
+                "IdentityVerify",
+                "GeoCoding",
+                "DQEmail",
+                "DQPhone"
+            ]
+        },
+        {
+            "name": "Alberto Guerrero (MX)",
+            "preset": {
+                "address": {
+                    "addressLine1": "Zona Centro",
+                    "addressLine2": "Miguel Hidalgo",
+                    "addressLine3": "DISTRITO FEDERAL",
+                    "countryCode": "MX"
+                },
+                "identity": {
+                    "completename": "Elfego Alberto Guerrero",
+                    "nationalid": "GUHE580622HPLRRL06"
+                }
+            },
+            "options": [
+                "GeoCoding"
+            ]
+        },
+        {
+            "name": "Da Silva (BR)",
+            "preset": {
+                "address": {
+                    "addressLine1": "R DR AUGUSTO DE ANDRADE 225",
+                    "addressLine2": "SAO PAULO",
+                    "countryCode": "BR"
+                }
+            },
+            "options": [
+                "GeoCoding"
+            ]
+        },
+        {
+            "name": "John David Smith (UK)",
+            "preset": {
+                "address": {
+                    "addressLine1": "1009 Main ST",
+                    "countryCode": "UK",
+                    "postalCode": "CB418EP"
+                },
+                "identity": {
+                    "completename": "John David Smith",
+                    "dob": "04/07/1976"
+                },
+                "phone": {
+                    "calling_code": "US",
+                    "calling_from": "GB",
+                    "phone_number": "2089334572"
+                }
+            },
+            "options": [
+                "GeoCoding",
+                "DQPhone"
+            ]
+        }
+    ],
+    "json_endpoint": "",
+    "crntenant": [
+        "demo",
+        "local"
+    ],
+    "loginoptions": [
+        "postcredit;",
+        "DisableDQChecks",
+        "zippie"
+    ]
+}

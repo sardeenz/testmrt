@@ -24,10 +24,12 @@ class Demo < Sinatra::Base
   
   get "/" do
     redirect '/index.html'
+    puts "first"
   end
 
   get "/config" do
     content_type 'application/json'
+    puts Dir.pwd
 
     # get the name of the directory that the sinatra file is in
     war_name = File.basename(File.dirname(__FILE__))
@@ -36,7 +38,8 @@ class Demo < Sinatra::Base
       war_name = File.dirname(__FILE__).split('/')[-2]
       return File.read("Z:/mrt/#{war_name}.config.json")
     else
-      return File.read("#{war_name}.config.json")
+      #return File.read("#{war_name}.config.json")
+      return File.read("demo.config.json")
     end
   end
 
