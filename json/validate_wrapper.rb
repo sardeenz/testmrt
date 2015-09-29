@@ -5,7 +5,8 @@ require 'net/http'
 require_relative 'mrt_logger.rb'
 require "rexml/document"
 
-
+puts Dir.pwd
+puts "insde json/validate_wrapper"
 file = File.new( "test.xml" )
 doc = REXML::Document.new file
 

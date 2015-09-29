@@ -11,6 +11,11 @@ require 'mailfactory'
 require 'base64'
 require 'rubygems'
 
+# std_out = File.new("./log/stdout.log","a")
+# $stdout.reopen(std_out)
+
+puts 'insde demo/validate_wrapper'
+
 PDFKit.configure do |config|
   config.wkhtmltopdf = 'D:/wkhtmltopdf/bin/wkhtmltopdf.exe' if Gem.win_platform?
 end
@@ -18,26 +23,34 @@ end
 class Demo < Sinatra::Base
   helpers Sinatra::Streaming
 
+  puts 'begin demo-->validate_wrapper'
   set :root, File.dirname(__FILE__)
-
+  puts :root
   set :environment, :development
   
   get "/" do
-    redirect '/index.html'
     puts "first"
+    puts "pwd = "
+    puts Dir.pwd
+    redirect '/demo/index.html'
+    
   end
 
   get "/config" do
+    puts "inside /config"
     content_type 'application/json'
+    puts "pwd = "
     puts Dir.pwd
 
     # get the name of the directory that the sinatra file is in
     war_name = File.basename(File.dirname(__FILE__))
 
     if Gem.win_platform?
+      puts "inside Gem.win_platform"
       war_name = File.dirname(__FILE__).split('/')[-2]
       return File.read("Z:/mrt/#{war_name}.config.json")
     else
+      puts "before demo.config.json"
       #return File.read("#{war_name}.config.json")
       return File.read("demo.config.json")
     end
